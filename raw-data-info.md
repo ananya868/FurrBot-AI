@@ -1,9 +1,9 @@
-#Data: 
-- this text file shows the overall information about the data/knowledge base for our chatbot! Raw information about the data is provided as well as the structured information and the format style to be used. information on metadata is also provided on data-format-guide.txt file: 
+# Dataset 🗄️ 
+This text file shows the overall information about the data/knowledge base for our chatbot! Guidelines on metadata and data-format can be found on data-format-guide.txt file.
 
-* '...' indicates presence of sub categories
+*'...' indicates presence of sub categories*
 
-Core pet categories:
+**Core pet categories:**
 - Dogs (breeds) ...
 - Cats (breeds) ...
 - Birds
@@ -24,16 +24,12 @@ Core pet categories:
 - Chickens and Ducks
 - Pigs
 
+# About the data: 
+The data consists of blog articles written by pet doctors at petmd.com on various topics around pets such as diet, care, medication, allergies, etc. These articles are written by verified medical practitioners and thus provide validated information about pets. Below is an overview of the categories and sub categories for the knowledge base!
 
-* (optional) indicate that this para might or might not be in the blog
+*(optional) indicate that this para might or might not be in the blog*
 
-# Raw Data structure: 
-Analyzing the raw data provides insights into the depth of information available for each pet category, aiding in the development of a more robust and accurate model.
-The given information is not 100% accurate, stating that this is an overall observation from most of the articles but not every article in the site!
-Please make careful decisions while building the vector database.
-
-
-# Pets
+### **Pets**
     1. Pet categories with Sub categories:
         - Dogs: 
             - Breeds: ....
@@ -103,7 +99,7 @@ Please make careful decisions while building the vector database.
             Certain pet categories might have less blogs than others 
 
 
-# Medication   
+### **Medication**   
     1. All medication: 
         - A-Z Medicines names(for all animals, but mostly for dogs)
             - Blog Format(
@@ -119,34 +115,34 @@ Please make careful decisions while building the vector database.
         - Each category has blog articles with specified details and other info
 
 
-# Allergies
+### **Allergies**
     1. Allergies in Cats 
         - Blog articles 
     2. Allergies in Dogs
         - Blog articles 
 
 
-# Calming 
+### **Calming** 
     1. Calming in Dogs
         - Blog articles 
     
 
-# Cancer
+### **Cancer**
     1. Cancer in Cats 
         - Blog articles 
     2. Cancer in Dogs 
         - Blog articles 
 
 
-# Dental
+### **Dental**
     Blog articles 
 
 
-# Emergency (IMPORTANT)
+### **Emergency (imp)**
     Blog articles
 
 
-# New pet 
+### **New pet** 
     - Kitten care 
     - new cat care 
     - new dog care 
@@ -154,14 +150,14 @@ Please make careful decisions while building the vector database.
     - puppy care
         - All blog articles
 
-# Senior pets 
+### **Senior pets** 
     Arthritis in Cats, Dogs
     End of life care
     Senior Cat, Dog care 
         - Blog articles 
 
 
-# Pain Management 
+### **Pain Management** 
     Pain Management in dogs
         - Blog articles
 
