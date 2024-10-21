@@ -1,0 +1,22 @@
+Data Format guidelines:
+This text document provides information on how the data should be formatted for usage. Please go through the following guidelines before 
+constructing the dataset!
+
+* Info on Dataset Folder structure is provided in data-folder-structure.md file! 
+
+
+Guidelines: 
+- Text Data: As this will be used in a large language model, the primary data should be text. The optimal context length has to decided.
+- Data Cleaning: Data cleaning is essential before any use, as it may contain advertisements or irrelevant information. 
+                The data should be cleaned, concise, and limited to blog articles exclusively.
+- Length of Text for each instance: The length of each blog or instance may vary, with some containing less content than others.
+                We must determine the most effective approach to handle these differences and ensure optimal performance.
+- Organized Data: Given the multiple categories and subcategories within the dataset, it's necessary to maintain separate datasets for each category. 
+                This approach ensures that appropriate metadata can be used for each specific category.
+- Optimize for RAG: The dataset should include metadata to facilitate optimization and re-ranking after retrieval.
+                This approach will guarantee that the most relevant and useful information is retrieved, aligning with the user’s query.
+- Pipeline: The dataset should be structured to allow the data pipeline to seamlessly ingest new data in the same format as the existing knowledge base. 
+                This approach will ensure our chatbot remains updated with the latest information.
+- more ..
+
+
