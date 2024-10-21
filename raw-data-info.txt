@@ -104,11 +104,67 @@ Please make careful decisions while building the vector database.
             Certain pet categories might have less blogs than others 
 
 
-# Medication
+# Medication   
+    1. All medication: 
+        - A-Z Medicines names(for all animals, but mostly for dogs)
+            - Blog Format(
+                What its used for?
+                How it works?
+                Directions
+                Possible Side effects 
+                How to store the medicine?
+                Overdose info (optional)
+                FAQs (optional)
+            )
+    2. Flea and Tick, Heartworm, Pet Anxiety
+        - Each category has blog articles with specified details and other info
+
+
 # Allergies
-# Calming
+    1. Allergies in Cats 
+        - Blog articles 
+    2. Allergies in Dogs
+        - Blog articles 
+
+
+# Calming 
+    1. Calming in Dogs
+        - Blog articles 
+    
+
 # Cancer
+    1. Cancer in Cats 
+        - Blog articles 
+    2. Cancer in Dogs 
+        - Blog articles 
+
+
 # Dental
-# Emergency 
+    Blog articles 
+
+
+# Emergency (IMPORTANT)
+    Blog articles
+
+
+# New pet 
+    - Kitten care 
+    - new cat care 
+    - new dog care 
+    - pet insurance 
+    - puppy care
+        - All blog articles
+
 # Senior pets 
+    Arthritis in Cats, Dogs
+    End of life care
+    Senior Cat, Dog care 
+        - Blog articles 
+
+
+# Pain Management 
+    Pain Management in dogs
+        - Blog articles
+
+
 more ..
