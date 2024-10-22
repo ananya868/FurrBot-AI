@@ -4,7 +4,6 @@ constructing the dataset!
 
 * Info on Dataset Folder structure is provided in data-folder-structure.md file! 
 
-
 Guidelines: 
 - Text Data: As this will be used in a large language model, the primary data should be text. The optimal context length has to decided.
 - Data Cleaning: Data cleaning is essential before any use, as it may contain advertisements or irrelevant information. 
@@ -19,4 +18,30 @@ Guidelines:
                 This approach will ensure our chatbot remains updated with the latest information.
 - more ..
 
+
+* (o) indicate that the key might be optional for varying category
+
+# Data Format Details:
+The dataset need to be formatted as json files containing a unique id for each instance, text(content) and relevant metadata 
+The data should include the following keys:
+- "unique_id": A unique id for the instance
+- "text": Main content of the blog
+- "pet_type": Type of pet, eg Dog
+- "pet_breed" (o): Breed type of the pet 
+- "category" (o): Type of content, eg Diet, exercise, etc
+- "author": Name of the veteran/author of the blog
+- "source": link of the article
+- "keywords": Extracted important keywords from the article
+- "pet_age_group" (o): Age group of the pet 
+
+
+StepWise process: 
+
+- user inputs a query
+- Define vector similarity matching methods
+- vector similarity matching is executed
+- metadata extracted 
+- Defining re-ranking methods
+- implement re-ranking methods
+- return to LLM
 
