@@ -4,7 +4,7 @@ The following data format is to used for effective retrieval from a vector datab
 Metadata is utilized to improve re-ranking for best match.
 
 
-```python
+```bash
 [
     {
         "unique_id": 18,
