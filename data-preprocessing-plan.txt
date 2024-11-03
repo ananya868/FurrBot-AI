@@ -5,3 +5,10 @@
 # We ll pre-process the data to remove miscellaneous text, to make it ready for retrieval systems, and LLM use 
 
 
+- Potential Pre-processing Steps: 
+    - Text Extraction
+    - Text Cleaning (remove noise and lower case it) 
+    - Tokenization, Sentence segmentation, or Chunking methods 
+    - NER, Keyword Extraction methods, or Lemmatization
+    - Embedding methods, Vector database requirements
+    - indexes and metadata
