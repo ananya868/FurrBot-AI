@@ -1,0 +1,7 @@
+# The data structure involves text data from various sources on the internet, mostly blogs from petmd.com 
+# Analysis shows the data structure is varied, some are structured in a particular format, and some are unstructured 
+# We ll need pre-process the data keeping in mind the requirements of the vector database and retrieval technique
+# Since we have organized the pdf text corpus in a proper way, we ll utilize the folder names and file names to fill out the metadata 
+# We ll pre-process the data to remove miscellaneous text, to make it ready for retrieval systems, and LLM use 
+
+
