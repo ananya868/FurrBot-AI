@@ -20,25 +20,6 @@ class PDFTextExtractorForBreeds(DataExtractionBase):
     def __init__(self, pdf_file_path):
         self.pdf_file_path = pdf_file_path
 
-    # Extra method to merge short elements in a list of text elements
-    def merge_short_elements(self, item_list: list, text: list):
-        """
-        Merge short elements in a list of text elements
-        About: Some elements in the list of texts (extracted from pdf) might be short, identify those and pass
-                them to this function to merge them with their consecutive elements. 
-        """
-        for t in text:
-            for i in range(len(item_list) - 1):
-                if t in item_list[i]:
-                    # Copy this 
-                    content = item_list[i]
-                    item_list.pop(i)
-                    # Add the new content to next item 
-                    item_list[i] = content + " " + item_list[i]
-                    break 
-
-        return item_list
-
     # Extract method for extracting text from PDF files 
     def extract(self):
         """
@@ -91,7 +72,34 @@ class PDFTextExtractorForBreeds(DataExtractionBase):
                 i += 1  # Only move to the next item if no merge happened or if "References" was encountered
         
         return text_list_01, subheadings 
+    
 
+# Class for merging shorter elements in a list of text elements 
+class MergeShortElements(DataExtractionBase):
+    def __init__(self, item_list: list, threshold: int = 16):
+        self.item_list = item_list
+        self.threshold = threshold
+
+    # method to merge short elements in a list of text elements
+    def extract(self):
+        """
+        Merge short elements in a list of text elements
+        About: Some elements in the list of texts (extracted from pdf) might be short, identify those and pass
+                them to this function to merge them with their consecutive elements. 
+        """
+        # Extract short elements from the list 
+        text = [e for e in self.item_list if len(e.split(" ")) < self.threshold]
+        for t in text:
+            for i in range(len(self.item_list) - 1):
+                if t in self.item_list[i]:
+                    # Copy this 
+                    content = self.item_list[i]
+                    self.item_list.pop(i)
+                    # Add the new content to next item 
+                    self.item_list[i] = content + " " + self.item_list[i]
+                    break 
+
+        return self.item_list
     
 
 # Factory class for Data Extraction 
