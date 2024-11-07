@@ -18,4 +18,8 @@
 Step wise code: 
 
 # Data Pipeline
-data ingestion -> data extraction -> data preprocessing -> chunking -> metadata building -> finalization -> Embedding methods and indexing
+data ingestion -> data extraction -> data preprocessing -> chunking -> metadata building -> text data creation -> Embedding methods and indexing
+                    (dict created)      (text will be       (length)    (metadata added)     (json saved)          (embedding and indexing)
+                    (unique_id, text,        cleaned)
+                    pet_type, breed, 
+                    topic)

@@ -9,18 +9,25 @@ Metadata is utilized to improve re-ranking for best match.
 ```bash
 [
     {
-        "unique_id": 18,
-        "text": "The diet for a golden retriever is .....",
-        "pet_type": "dog",
-        "pet_breed": "golden retriever",
-        "category": "Diet and exercise",
-        "author": "Miranda Jose", 
-        "source": "https://petmd.com/golden-retriever-diet",
-        "keywords": ["diet", "golden-retriever", "low fat"],
-        "pet_age_group": "adult"
-    },
-    {
-        ...
+        'Dogs': [
+            {
+                'unique_id': 12,
+                'text': "para-para para para ....",
+                'pet_type': 'dogs',
+                'pet_breed': 'Labrador',
+                'topic': 'Labrador training',
+                'keywords': ["training", "breeding", "food"],
+                'word_count': 180,
+                'chunk_size': 155,
+                'age_group': 'adult'
+            },
+            {
+                # ...
+            }
+        ],
+        'Cats': [
+                # ... 
+        ] 
     }
 ]
 ```
@@ -29,19 +36,27 @@ Metadata is utilized to improve re-ranking for best match.
 ```bash
 [
     {
-        "unique_id": 18,
-        "text": "The blog explains how to take care of your pet.....",
-        "pet_type": "hamsters",
-        "blog_topic": "How to take care of a hamster?",
-        # "pet_breed": "golden retriever", # no breed
-        # "category": "Diet and exercise", # no category
-        # "author": "Miranda Jose", # optional 
-        "source": "https://petmd.com/hamsters", 
-        "keywords": ["care", "hamsters", "diet"],
-        # "pet_age_group": "adult"  no age group
-    },
-    {
-        ...
+        'birds': [
+            { 
+                'unique_id': 1,
+                'text': "para-para para para ....",
+                'pet_type': 'birds',
+                'blog_name': 'Diet for birds',
+                'topic': 'is wheat good for birds?',
+                'keywords': ["diet", "breeding", "food"],
+                'word_count': 200, 
+                'chunk_size': 180, 
+                'age_group': 'adult'
+            }, 
+            {
+                'unique_id': 2,
+                # .... 
+            }
+        ],
+
+        'Rats': [
+            # ....
+        ]
     }
 ]
 ```

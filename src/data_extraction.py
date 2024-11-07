@@ -72,7 +72,7 @@ class PDFTextExtractorForBreeds(DataExtractionBase):
                 i += 1  # Only move to the next item if no merge happened or if "References" was encountered
         
         return text_list_01, subheadings 
-    
+        
 
 # Class for merging shorter elements in a list of text elements 
 class MergeShortElements(DataExtractionBase):
