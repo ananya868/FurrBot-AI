@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 import pandas as pd 
+import os
 
 
 
@@ -24,14 +25,14 @@ class TextDataIngestion(DataIngestion):
         Ingest data from a folder containing text files
         
         Returns: 
-            dict: A dictionary containing the text data
+            dict: A dictionary containing the text data pdf file paths
         """
         pdf_dict = {}
     
         # Walk through the directory
         for root, dirs, files in os.walk(self.folder_name):
             # Check if the current directory is not the root folder
-            if root != folder_name:
+            if root != self.folder_name:
                 pdf_files = [file for file in files if file.lower().endswith('.pdf')]
                 if pdf_files:
                     # Store the PDF files in the dictionary
@@ -48,6 +49,8 @@ class CSVDataIngestion(DataIngestion):
     def ingest(self):
         """
         Ingest data from a csv file 
+        Returns: 
+            list: A list of file paths to the csv files
         """ 
         csv_file_paths = []
 

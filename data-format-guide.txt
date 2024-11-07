@@ -29,8 +29,8 @@ The data should include the following keys:
 - "pet_type": Type of pet, eg Dog
 - "pet_breed" (o): Breed type of the pet 
 - "category" (o): Type of content, eg Diet, exercise, etc
-- "author": Name of the veteran/author of the blog
-- "source": link of the article
+- "author": Name of the veteran/author of the blog*-
+- "source": link of the article*-
 - "keywords": Extracted important keywords from the article
 - "pet_age_group" (o): Age group of the pet 
 

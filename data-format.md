@@ -30,7 +30,7 @@ Metadata is utilized to improve re-ranking for best match.
 [
     {
         "unique_id": 18,
-        "text": "The blog explains how to take care of you pet.....",
+        "text": "The blog explains how to take care of your pet.....",
         "pet_type": "hamsters",
         "blog_topic": "How to take care of a hamster?",
         # "pet_breed": "golden retriever", # no breed

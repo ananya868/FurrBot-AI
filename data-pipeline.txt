@@ -13,3 +13,9 @@
     - Embedding methods, Vector database requirements
     - indexes and metadata
 
+
+
+Step wise code: 
+
+# Data Pipeline
+data ingestion -> data extraction -> data preprocessing -> chunking -> metadata building -> finalization -> Embedding methods and indexing
