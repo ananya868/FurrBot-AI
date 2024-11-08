@@ -1,6 +1,8 @@
 from abc import ABC, abstractmethod 
 from chat_with_ai import ChatWithAI
 import uuid 
+# Short unique id 
+from shortuuid import ShortUUID
 
 
 class MetadataCreation(ABC):
@@ -21,7 +23,7 @@ class MetadataCreation(ABC):
 # Define a class to create a metadata 'unique id' field 
 class UniqueIdMetadataCreation(MetadataCreation):
     def create_metadata(self):
-        return str(uuid.uuid4())
+        return str(ShortUUID().random(length=6))
 
 
 # Define a class to create a metadata 'keywords' field
@@ -82,6 +84,13 @@ class AgeGroupMetadataCreation(MetadataCreation):
         age_group = age_group.replace("'", '').replace(' ', '')
         
         return age_group
+
+
+# Define a class to create a metadata 'word_count'
+
+
+# Define a class to create a metadata 'chunk_size
+
 
 
 

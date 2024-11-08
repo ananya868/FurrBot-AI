@@ -1,0 +1,35 @@
+Given below is the flow of steps for the complete data pipeline: 
+
+> Data Ingestion: 
+    - ingests data from various sources, primarily pdf, then csv, json, apis, raw text files, etc. 
+    - validates right data format and structure
+    - robust data ingestion pipeline
+
+> Data Extraction:
+    - extracts text from the data, primarily from pdf, then csv, json, raw text, apis, etc.
+    - extracts raw text and convert into structured lists of paras, and their subheadings (in case of pdf)
+    - validates extracted text format and structure
+    - robust data extraction pipeline
+
+> Data Transformation: 
+    - cleans and preprocesses the extracted text 
+    - validates cleaned text format and structure
+    - robust data transformation pipeline 
+
+> Meta Data Creation: 
+    - constructs meta data for the text 
+    - adapts to different text formats and structures
+    - robust meta data creation pipeline
+
+> Text Data Creation:
+    - takes in the cleaned text and constructs a textual representation
+    - saves the textual representation into a database or file
+    - robust text data creation pipeline
+
+> Embedding Generation:
+    - generates embeddings for the textual representation using suitable methods 
+    - adapts to different embedding techniques based on RAG type
+    - robust embedding generation pipeline
+
+
+

@@ -4,6 +4,8 @@
         "ingestor",
         "Lemmatization",
         "misclleneous",
-        "petmd"
+        "petmd",
+        "preprocesses",
+        "shortuuid"
     ]
 }
