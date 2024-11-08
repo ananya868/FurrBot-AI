@@ -23,3 +23,4 @@ data ingestion -> data extraction -> data preprocessing -> chunking -> metadata 
                     (unique_id, text,        cleaned)
                     pet_type, breed, 
                     topic)
+

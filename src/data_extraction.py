@@ -76,8 +76,9 @@ class PDFTextExtractorForBreeds(DataExtractionBase):
 
 # Class for merging shorter elements in a list of text elements 
 class MergeShortElements(DataExtractionBase):
-    def __init__(self, item_list: list, threshold: int = 16):
+    def __init__(self, item_list: list, subheadings: list, threshold: int = 16):
         self.item_list = item_list
+        self.subheadings = subheadings
         self.threshold = threshold
 
     # method to merge short elements in a list of text elements
@@ -88,19 +89,25 @@ class MergeShortElements(DataExtractionBase):
                 them to this function to merge them with their consecutive elements. 
         """
         # Extract short elements from the list 
-        text = [e for e in self.item_list if len(e.split(" ")) < self.threshold]
-        for t in text:
-            for i in range(len(self.item_list) - 1):
-                if t in self.item_list[i]:
-                    # Copy this 
-                    content = self.item_list[i]
-                    self.item_list.pop(i)
-                    # Add the new content to next item 
-                    self.item_list[i] = content + " " + self.item_list[i]
-                    break 
+        # text = [e for e in self.item_list if len(e.split(" ")) < self.threshold]
+        items, indexes = [], []
+        for e, item in enumerate(self.item_list): 
+            # if item is shorter than the threshold, add it to the next item, also merge the same subheading with that index
+            if len(item.split(" ")) < self.threshold:
+                items.append(item)
+                indexes.append(e) 
 
-        return self.item_list
+        # Merge the short elements with the next element, also the subheading with the next subheading
+        for i in indexes: 
+            if i < len(self.item_list) - 1:
+                self.item_list[i] = self.item_list[i] + " " + self.item_list[i + 1]
+                self.subheadings[i] = self.subheadings[i] + " " + self.subheadings[i + 1]
+                self.item_list.pop(i + 1)
+                self.subheadings.pop(i + 1)
+                
+        return self.item_list, self.subheadings
     
+
 
 # Factory class for Data Extraction 
 class DataExtractionFactory:
