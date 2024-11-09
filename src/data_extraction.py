@@ -57,21 +57,30 @@ class PDFTextExtractorForBreeds(DataExtractionBase):
                                     text_list.append(text) # Starts new section
         
         text_list_01 = text_list.copy()
-        # Iterate through the list and merge items containing "FAQ" with the next item
+        subheadings_01 = subheadings.copy()
+
+        if len(text_list_01) != len(subheadings_01):
+            # pop the first index element from text list 
+            text_list_01.pop(0)
+        assert len(text_list_01) == len(subheadings_01), "Length of text and subheadings lists do not match"
+
+        # FAQ and References 
         i = 0
         while i < len(text_list_01) - 1: 
             if "FAQ" in text_list_01[i] and "References" not in text_list_01[i]:
                 # Merge current item with the next item unless the next item contains "References"
                 if "References" not in text_list_01[i + 1]:
                     text_list_01[i] = text_list_01[i] + " " + text_list_01[i + 1]
+                    subheadings_01[i] = subheadings_01[i] + " " + subheadings_01[i + 1]
                     # Remove the next item (since it's now merged)
                     text_list_01.pop(i + 1)
+                    subheadings_01.pop(i + 1)
                 else:
                     i += 1  # Move to the next item if the next one contains "References"
             else:
                 i += 1  # Only move to the next item if no merge happened or if "References" was encountered
         
-        return text_list_01, subheadings 
+        return text_list_01, subheadings_01 
         
 
 # Class for merging shorter elements in a list of text elements 

@@ -13,8 +13,8 @@ Metadata is utilized to improve re-ranking for best match.
             {
                 'unique_id': 12,
                 'text': "para-para para para ....",
-                'pet_type': 'dogs',
-                'pet_breed': 'Labrador',
+                'pet_type': '
+                'bdogs',log_name': 'Labrador',
                 'topic': 'Labrador training',
                 'keywords': ["training", "breeding", "food"],
                 'word_count': 180,

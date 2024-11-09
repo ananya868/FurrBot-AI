@@ -1,6 +1,9 @@
-from abc import ABC, abstractmethod 
-from src.data_ingestion import DataIngestionFactory, TextDataIngestion, CSVDataIngestion #... (add more)
-
+from src.data_ingestion import (
+    DataIngestionFactory, 
+    TextDataIngestion, 
+    CSVDataIngestion 
+    # ... 
+) 
 
 
 def data_ingestion_step(source: str, type: str='pdf') -> dict: 
@@ -42,6 +45,11 @@ def data_ingestion_step(source: str, type: str='pdf') -> dict:
         raise Exception(f"Data ingestion failed with error: { str(e) }")        
 
     assert any(data.values()), f"No data found in the source: {source}"
+
+    # Deletes the empty data entries to save memory
+    for k, v in data.items():
+        if len(v) == 0:
+            del data[k]
 
     return data 
 

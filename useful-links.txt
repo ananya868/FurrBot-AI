@@ -1,0 +1,3 @@
+AI Chatbot with Nextjs and OpenAI
+https://www.youtube.com/watch?v=sHuIIX79MOs
+
