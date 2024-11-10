@@ -48,7 +48,7 @@ def data_extraction_step(data_dict: dict, source: str='data')-> dict:
                     }
                 )
     else:
-        raise print("Data Pre-Processing not implemented for this data type")
+        raise print(f"Data extraction not implemented for this data type: {data_type}!")
     
     # Validator
     assert any(extracted_data.values()), "Extracted data is empty!"
@@ -66,8 +66,8 @@ def data_extraction_step(data_dict: dict, source: str='data')-> dict:
 # {
 #     "dog": [
 #         {
-#             'text': '....',
-#             'topic': '....',
+#             'text': ['..', '..'],
+#             'topic': ['..', '..'],
 #             'blog_name': 'labrador...',
 #         }, 
 #         {
@@ -77,8 +77,8 @@ def data_extraction_step(data_dict: dict, source: str='data')-> dict:
 #     ],
 #     "cat": [
 #         {
-#             'text': '....',
-#             'topic': '....',
+#             'text': ['..', '..'],
+#             'topic': ['..', '..'],
 #             'blog_name': 'siamese...',
 #         }, 
 #         {

@@ -54,3 +54,10 @@ def data_ingestion_step(source: str, type: str='pdf') -> dict:
     return data 
 
 
+
+# sample 
+# {
+#     'birds': ['pdf1.pdf', 'pdf2.pdf', 'pdf3.pdf'],
+#     'dogs': ['pdf4.pdf', 'pdf5.pdf'],
+#     .....
+# }

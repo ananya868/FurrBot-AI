@@ -14,7 +14,8 @@ class DataPreProcessingBase(ABC):
 
 # Define a class to remove irrelevant links from the text
 class RemoveLinks(DataPreProcessingBase):
-    def __init__(self, link_prefixes: list, text: list):
+    def __init__(self, text: list, link_prefixes: list=['https://www.printfriendly.com', 'http://www.printfriendly.com',
+            'https://petmd.com', 'http://www.petmd.com']):
         self.link_prefixes = link_prefixes
         self.text = text
 
@@ -50,7 +51,7 @@ class RemoveDateTime(DataPreProcessingBase):
 
 # Define a class to remove irrelevant special sentences from the text
 class RemoveIrrelevantSentences(DataPreProcessingBase):
-    def __init__(self, text: list, sentences: list=None):
+    def __init__(self, text: list, sentences: list=['Hypothyroidism Hypothyroidism']):
         self.text = text
         self.sentences = sentences
 
