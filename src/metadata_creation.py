@@ -22,6 +22,8 @@ class MetadataCreation(ABC):
 
 # Define a class to create a metadata 'unique id' field 
 class UniqueIdMetadataCreation(MetadataCreation):
+    def __init__(self): 
+        pass
     def create_metadata(self):
         return str(ShortUUID().random(length=6))
 
