@@ -4,6 +4,7 @@ from src.data_ingestion import (
     CSVDataIngestion 
     # ... 
 ) 
+import os
 
 
 def data_ingestion_step(source: str, type: str='pdf') -> dict: 
@@ -26,9 +27,9 @@ def data_ingestion_step(source: str, type: str='pdf') -> dict:
 
     # Ingestor Initialization
     if type == 'pdf':
-        ingestor = DataIngestionFactory(strategy=TextDataIngestion(folder_name=source))
+        ingestor = DataIngestionFactory(strategy=TextDataIngestion(folder_name=os.path.join('data', source)))
     elif type == 'csv':
-        ingestor = DataIngestionFactory(strategy=CSVDataIngestion(folder_path=source))
+        ingestor = DataIngestionFactory(strategy=CSVDataIngestion(folder_path=os.path.join('data', source)))
     elif type == 'api':
         print("API ingestion not implemented yet.")
     elif type == 'json':
@@ -37,7 +38,7 @@ def data_ingestion_step(source: str, type: str='pdf') -> dict:
         print("Text ingestion not implemented yet.")
     else:
         raise NotImplementedError(f"Data ingestion step failed for type: {type}")
-     
+    
     # Data Ingestion
     try:
         data = ingestor.ingest_data()

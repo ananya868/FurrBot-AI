@@ -1,9 +1,10 @@
-from src import (
+from src.data_extraction import (
     DataExtractionFactory, 
     PDFTextExtractorForBreeds,
     MergeShortElements, 
     # ... 
 )
+import os
 
 
 
@@ -32,7 +33,7 @@ def data_extraction_step(data_dict: dict, source: str='data')-> dict:
         for pet_type, blog_list in data_dict.items():
             extracted_data[pet_type] = []
             for blog in blog_list:
-                pdf_path = os.path.join(source, pet_type, blog)
+                pdf_path = os.path.join(source, 'pdf_data', pet_type, blog)
                 # Extractor 
                 extractor = DataExtractionFactory(strategy=PDFTextExtractorForBreeds(pdf_path))
                 text, topic = extractor.extract() # text extracted

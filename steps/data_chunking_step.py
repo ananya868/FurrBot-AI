@@ -1,5 +1,6 @@
 from src.data_chunking import (
     DataChunkingFactory,
+    ParagraphBasedChunking,
     FixedLengthChunking
 )
 
@@ -23,15 +24,15 @@ def data_chunking_step(data_dict: dict, chunking_method: str='para', chunk_lengt
 
     # pipeline of data chunking steps
     data_chunking_pipeline = {
-        'para': FixedLengthChunking
+        'para': ParagraphBasedChunking, 
+        'fixed': FixedLengthChunking
         # .... 
     }
 
     for method, chunking_class in data_chunking_pipeline.items():
-        if chunking_method == method:
+        if method == chunking_method:
             chunker = DataChunkingFactory(strategy=chunking_class(data_dict))
-            chunks = chunker.chunk_data()
-            
+            chunks = chunker.chunk_data()        
     # check for data in chunks
     assert any(chunks.values()), "Chunked data is empty!"
     return chunks

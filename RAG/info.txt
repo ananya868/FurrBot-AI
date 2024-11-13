@@ -1,0 +1,49 @@
+RAG module: 
+
+1. data format - 
+    { 
+        'pet_type': [
+            {
+                'unique_id': 1,
+                'text': 'bla bla ...',
+                'metadata': {
+                    'pet': 'dogs', 
+                    'keywords': ['diet', 'health'].
+                    ....
+                }
+            },
+            {  
+                .... 
+            }
+        ]
+    }
+
+2. Extract 'text' into a list 
+
+3. Embed the texts 
+
+4. Create a Milvus connection  
+    - connect to the milvus database 
+    - insert the text into the milvus database including metadata 
+
+--Once the data is inserted into the milvus database, you are ready to query from it 
+
+5. Define Search method 
+- Embed the query with the same model
+- query the database with suitable search method
+    - Similarity Search 
+    - Hybrid Search  
+- retrieve the metadata as well 
+
+6. Define Re-ranking method 
+- re-rank and pass the best result to the LLM
+- you may combine multiple results for better context
+    - Custom Re-ranking method 
+    - BGE 
+    - Cohere 
+    - Cross Encoder 
+    - Voyage 
+    - Jina AI
+
+7. LLM 
+- write prompt for LLM and formulate answer based on requirement.. 

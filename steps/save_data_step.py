@@ -4,7 +4,7 @@ import pandas as pd
 
 
 
-def save_data_step(data_dict: dict, path: str='vector_database/data'):
+def save_data_step(data_dict: dict, path: str='vector_database/text_data'):
     """
     Save data step
     This function is responsible for saving the data to a file
@@ -24,7 +24,7 @@ def save_data_step(data_dict: dict, path: str='vector_database/data'):
         # save the data to a file
         try:
             with open(f"{path}/{pet_type}.json", 'w') as f:
-                json.dump(chunk, f)
+                json.dump(chunk, f, indent=4)
         except Exception as e:
             print(f"Error saving json data: {e}")
 

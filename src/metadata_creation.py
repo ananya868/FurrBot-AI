@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod 
-from chat_with_ai import ChatWithAI
+from src.chat_with_ai import ChatWithAI
 import uuid 
 # Short unique id 
 from shortuuid import ShortUUID

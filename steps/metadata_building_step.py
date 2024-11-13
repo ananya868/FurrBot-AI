@@ -4,7 +4,7 @@ from src.metadata_creation import (
     KeywordsMetadataCreation, 
     AgeGroupMetadataCreation 
 )
-
+import re
 
 
 
@@ -30,11 +30,13 @@ def metadata_creation_step(data_dict: dict, api_key: str)-> dict:
                 items['metadata'] = {}
 
             # Create metadata fields
+            items['metadata']['pet'] = pet_type
             items['metadata']['keywords'] = MetadataFactory(strategy=KeywordsMetadataCreation(text=items.get('text'), api_key=api_key)).create_field()
             items['metadata']['age_group'] = MetadataFactory(strategy=AgeGroupMetadataCreation(text=items.get('text'), api_key=api_key)).create_field()
             items['metadata']['word_count'] = len(items.get('text').split())
-            items['metadata']['chunk_size'] = len(re.findall(r'\w+|\S\w*', text))   
-           
+            items['metadata']['chunk_size'] = len(re.findall(r'\w+|\S\w*', items['text']))
+        
+        print(f"[info] --Metadata created for: {pet_type}--")
 
     assert any(data_dict.values()), "Metadata dict is empty!"
 
