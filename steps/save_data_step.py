@@ -28,10 +28,10 @@ def save_data_step(data_dict: dict, path: str='vector_database/text_data'):
         except Exception as e:
             print(f"Error saving json data: {e}")
 
-    # Remove the 'metadata' key, update the keys to be compatible with csv format
-    for pet_type, chunk in data_dict.items():
-        for items in chunk: 
-            items.update(items.pop('metadata'))
+    # # Remove the 'metadata' key, update the keys to be compatible with csv format
+    # for pet_type, chunk in data_dict.items():
+    #     for items in chunk: 
+    #         items.update(items.pop('metadata'))
     
     # save the data to a file 
     try:

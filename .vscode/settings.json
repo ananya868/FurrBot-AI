@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
+        "chromadb",
         "chunker",
         "fitz",
         "ingestor",
@@ -9,6 +10,7 @@
         "misclleneous",
         "petmd",
         "preprocesses",
-        "shortuuid"
+        "shortuuid",
+        "tqdm"
     ]
 }

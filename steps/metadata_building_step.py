@@ -5,6 +5,7 @@ from src.metadata_creation import (
     AgeGroupMetadataCreation 
 )
 import re
+from tqdm import tqdm
 
 
 
@@ -22,19 +23,19 @@ def metadata_creation_step(data_dict: dict, api_key: str)-> dict:
 
     # Loop into the data dict and create metadata for each data
     for pet_type, chunk in data_dict.items():
-        for items in chunk: 
+        for items in tqdm(chunk): 
             # items -> dict 
-            items['unique_id'] = MetadataFactory(strategy=UniqueIdMetadataCreation()).create_field()
+            # items['unique_id'] = MetadataFactory(strategy=UniqueIdMetadataCreation()).create_field()
 
-            if 'metadata' not in items:
-                items['metadata'] = {}
+            # if 'metadata' not in items:
+            #     items['metadata'] = {}
 
             # Create metadata fields
-            items['metadata']['pet'] = pet_type
-            items['metadata']['keywords'] = MetadataFactory(strategy=KeywordsMetadataCreation(text=items.get('text'), api_key=api_key)).create_field()
-            items['metadata']['age_group'] = MetadataFactory(strategy=AgeGroupMetadataCreation(text=items.get('text'), api_key=api_key)).create_field()
-            items['metadata']['word_count'] = len(items.get('text').split())
-            items['metadata']['chunk_size'] = len(re.findall(r'\w+|\S\w*', items['text']))
+            items['pet'] = pet_type
+            # items['metadata']['keywords'] = MetadataFactory(strategy=KeywordsMetadataCreation(text=items.get('text'), api_key=api_key)).create_field()
+            # items['metadata']['age_group'] = MetadataFactory(strategy=AgeGroupMetadataCreation(text=items.get('text'), api_key=api_key)).create_field()
+            items['word_count'] = len(items.get('text').split())
+            items['chunk_size'] = len(re.findall(r'\w+|\S\w*', items['text']))
         
         print(f"[info] --Metadata created for: {pet_type}--")
 

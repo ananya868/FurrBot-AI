@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod 
-from src.chat_with_ai import ChatWithAI
+# from src.chat_with_ai import ChatWithAI
+from src.chat_with_gemini import ChatWithGemini 
 import uuid 
 # Short unique id 
 from shortuuid import ShortUUID
@@ -50,10 +51,22 @@ class KeywordsMetadataCreation(MetadataCreation):
                     Make sure to only answer in this format and only return the answer, no extra text.
                     [keyword1, keyword2, keyword3, keyword4, keyword5]
                     """
-        chat = ChatWithAI(prompt=prompt, api_key=self.api_key, model='gpt-3.5-turbo') 
-        keywords = chat.get_response_from_llm() # str
-        # pre-process to return list of keywords
-        keywords = keywords.replace('[', '').replace(']', '').replace(' ', '').split(',')
+
+        # Open AI
+        if self.api_key.startswith('sk-'):
+            # use OpenAI
+            # print(f"--Using OpenAI API to generate keywords--")
+            chat = ChatWithAI(prompt=prompt, api_key=self.api_key, model='gpt-3.5-turbo')
+            keywords = chat.get_response_from_llm() # str
+            # pre-process to return list of keywords
+            keywords = keywords.replace('[', '').replace(']', '').replace(' ', '').split(',')
+        else: 
+            # use Gemini instead
+            # print(f"--Using Gemini API to generate keywords--")
+            chat = ChatWithGemini(prompt=prompt, model='gemini-1.5-flash')
+            keywords = chat.get_response_from_llm() # str
+            # pre-process to return list of keywords
+            keywords = keywords.replace('[', '').replace(']', '').replace(' ', '').split(',')
         
         return keywords
 
@@ -80,23 +93,23 @@ class AgeGroupMetadataCreation(MetadataCreation):
                     Make sure to only answer in this format and only return the answer, no extra text.
                     'age_group'
                     """
-        chat = ChatWithAI(prompt=prompt, api_key=self.api_key, model='gpt-3.5-turbo') 
-        age_group = chat.get_response_from_llm() # str
-        # pre-process to return age group string
-        age_group = age_group.replace("'", '').replace(' ', '')
+
+        if self.api_key.startswith('sk-'):
+            # use OpenAI
+            # print(f"--Using OpenAI API to generate age group--")
+            chat = ChatWithAI(prompt=prompt, api_key=self.api_key, model='gpt-3.5-turbo') 
+            age_group = chat.get_response_from_llm() # str
+            # pre-process to return age group string
+            age_group = age_group.replace("'", '').replace(' ', '')
+        else:
+            # use Gemini instead
+            # print(f"--Using Gemini API to generate age group--")
+            chat = ChatWithGemini(prompt=prompt, model='gemini-1.5-flash')
+            age_group = chat.get_response_from_llm() # str
+            # pre-process to return age group string
+            age_group = age_group.replace("'", '').replace(' ', '')
         
         return age_group
-
-
-# Define a class to create a metadata 'topic' field 
-
-
-# Define a class to create a metadata 'word_count'
-
-
-# Define a class to create a metadata 'chunk_size
-
-
 
 
 # Define Factory class to create metadata fields 
