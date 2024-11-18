@@ -11,6 +11,7 @@
         "petmd",
         "preprocesses",
         "shortuuid",
-        "tqdm"
+        "tqdm",
+        "upserting"
     ]
 }
