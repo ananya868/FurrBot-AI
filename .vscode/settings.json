@@ -1,8 +1,11 @@
 {
     "cSpell.words": [
+        "Behaviour",
         "chromadb",
         "chunker",
+        "dotenv",
         "fitz",
+        "Furr",
         "ingestor",
         "Jina",
         "Lemmatization",
@@ -12,6 +15,7 @@
         "preprocesses",
         "shortuuid",
         "tqdm",
+        "updation",
         "upserting"
     ]
 }

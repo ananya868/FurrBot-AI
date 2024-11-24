@@ -4,7 +4,7 @@ import os
 
 
 
-# abstract class for Data Ingesttion
+# abstract class for Data Ingestion
 class DataIngestion(ABC):
     @abstractmethod
     def __init__(self):
