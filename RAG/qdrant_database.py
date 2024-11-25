@@ -7,8 +7,8 @@ import os
 
 
 class QdrantDatabase: 
-    def __init__(self, cluster_uri: str, emb_model: str='all-MiniLM-L6-v2'):
-        self.client = QdrantClient(cluster_uri, api_key=os.environ.get('QDRANT_API_KEY'))
+    def __init__(self, cluster_uri: str, api: str, emb_model: str='all-MiniLM-L6-v2'):
+        self.client = QdrantClient(cluster_uri, api_key=api)
         self.encoder = SentenceTransformer(emb_model)
 
     
@@ -65,7 +65,7 @@ class QdrantDatabase:
             points=[
                 models.PointStruct(
                     id=idx,
-                    vector=self.encoder.encode(doc['description']).tolist(),
+                    vector=self.encoder.encode(doc['text']).tolist(),
                     payload=doc
                 )
                 for idx, doc in enumerate(documents)
