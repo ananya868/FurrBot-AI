@@ -65,7 +65,7 @@ class QdrantDatabase:
             points=[
                 models.PointStruct(
                     id=idx,
-                    vector=self.encoder.encode(doc['description']).tolist(),
+                    vector=self.encoder.encode(doc['text']).tolist(),
                     payload=doc
                 )
                 for idx, doc in enumerate(documents)

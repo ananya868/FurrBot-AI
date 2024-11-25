@@ -3,7 +3,6 @@ from annotated_text import annotated_text
 
 
 def home():
-    # Page settings
     st.set_page_config(
         page_title="FurrBot",
         page_icon="❄️️",
@@ -56,7 +55,8 @@ def home():
             )
     
         if st.button("**:rainbow[Go to App]** 📛", help="Click here to go to the chatbot", use_container_width=False):
-            st.write("test")
+            st.session_state.page = "chat"
+            st.rerun()
 
     with st.container():
      
@@ -107,52 +107,6 @@ def home():
                     - **Behavior**: *Get information on pet behavior and training.*
                 '''
             )
-    
-
-    # sidebar 
-    st.sidebar.image("assets/ai_art.png", width=250, use_column_width=True)
-
-    st.sidebar.markdown(
-        """
-            ## Explore the Chatbot ☃️
-            
-            *Since this app use openai client, please provide your openai api key*
-            *(This app doesn't store api key or any type of secret keys)*
-        """,
-    )
-    # streamlit input box, also output success if api key entered 
-
-    api_key = st.sidebar.text_input("Enter your OpenAI API Key", help="Please enter your OpenAI API key here", type="password")
-    if api_key:
-        st.sidebar.success("API key entered successfully!")
-
-    st.sidebar.markdown(
-        """
-            or create a **.env** file in root dir, add your key:
-            ```bash
-            OPENAI_API_KEY="sk-14saq2f********"
-            ```
-        """
-    )
-
-    model = st.sidebar.selectbox(
-        "You can also choose LLM model -",
-        [
-            "gpt-3.5-turbo",
-            "gemini-1.5-flash (Free) (not recommended)",
-            "gpt-4.0 (Good)",
-            "gpt-4-turbo (Above Average)",
-            "gpt-4o-mini (Faster)",
-            "gpt-4o (Best in class)"
-        ],
-        help="Select the model you want to use for the chatbot",
-    )
-
-
-    st.sidebar.button("Home", help="Click here to go to the home page", use_container_width=True    )
-    st.sidebar.button("Feed", help="Click here to go to the feed page", use_container_width=True)
-    st.sidebar.button("Chatbot", help="Click here to go to the chatbot", use_container_width=True)
-
 
 
 # [theme]
