@@ -4,7 +4,7 @@ from dotenv import load_dotenv, set_key
 from streamlit_src.home_page import home
 from streamlit_src.feed_page import feed
 from chat_page import chat
-from annotated_text import annotated_text
+from annotated_text import annotated_text, annotation
 import openai
 # Page settings
 import time
@@ -35,6 +35,14 @@ st.sidebar.markdown("""
                     -webkit-background-clip: text;  
                 font-family: monospace ;'><b>Explore the Chatbot</b> 🐰</p>
         """, unsafe_allow_html=True)
+
+with st.sidebar.container():
+    co1, co2 = st.columns(2)
+    with co1:
+        st.page_link("https://github.com/ananya868/FurrBot-pet-care-chatbot", label="Src Code", icon="🖱️")
+    with co2: 
+        st.page_link("https://github.com/ananya868", label="My Github", icon="🐱")
+
 
 # OpenAI API input
 st.sidebar.markdown(
@@ -131,15 +139,12 @@ with st.container():
         if st.sidebar.button("Home", help="Click here to go to the home page", use_container_width=True):
             st.session_state.page = "home"
             st._experimental_rerun()
-    with col2:
-        if st.sidebar.button("Feed", help="Click here to go to the feed page", use_container_width=True):
-            st.session_state.page = "feed"
-            st._experimental_rerun()
+    # with col2:
+    #     if st.sidebar.button("Feed", help="Click here to go to the feed page", use_container_width=True):
+    #         st.session_state.page = "feed"
+    #         st._experimental_rerun()
     with col3:
         if st.sidebar.button("Chatbot", help="Click here to go to the chatbot", use_container_width=True):
             st.session_state.page = "chat"
             st._experimental_rerun()
-
-
-
-
+    

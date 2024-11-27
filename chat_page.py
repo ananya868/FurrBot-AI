@@ -55,11 +55,9 @@ def chat():
 
 
     # (f"**{model}**", f"{version}", f"{color}"),
-    st.markdown(
-        annotated_text(
-            "*Using* - ",
-            annotation(f"{model}", f"{version}", background = f"{color}", font_family="monospace"),
-        )
+    annotated_text(
+        "*Using* - ",
+        annotation(f"{model}", f"{version}", background = f"{color}", font_family="monospace"),
     )
 
     # Sidebar with a button to delete chat history4
@@ -79,9 +77,8 @@ def chat():
     USER_AVATAR = "👨🏻‍🚀"
     BOT_AVATAR = "🐰"
 
-
     # Clients
-    # Qdrant Database client
+    # Qdrant Database client (takes 15 second)
     qdrant = QdrantDatabase(
         cluster_uri="https://904197e5-0ed4-48c7-9642-0611912311c7.us-east4-0.gcp.cloud.qdrant.io:6333", 
         api=os.getenv("DB_API")

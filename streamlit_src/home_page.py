@@ -47,14 +47,26 @@ def home():
                     ("This is the space for the demo video", "", "#18545b"), 
                 )
             )
-        with st.expander("New item"):
-            st.write(
-                annotated_text(
-                    ("This is the space for the demo video", "", "#18545b"), 
-                )
+        with st.expander("About Me"):
+            co1, co2, co3, co4, co5= st.columns(5)
+            with co1:
+                st.page_link("http://www.github.com/ananya868", label="My Github", icon="🐱")
+            with co2:
+                st.page_link("https://www.linkedin.com/in/ananya8154/", label="My LinkedIn", icon="👥") 
+            with co3:
+                st.page_link("https://x.com/aiWorms", label="Twitter", icon="🐦")
+            with co4: 
+                st.page_link("https://huggingface.co/Ananya8154", label="huggingFace", icon="🤗")
+            st.markdown(
+                f"""
+                    I am a recently graduated Ai Engineer, and I love building AI solutions!
+                    > Contact me @ : *ananya8154@gmail.com* or feel free to reach me out on Twitter or LinkedIn
+                    
+                    > Do visit my Github to see my other works! Please give this repo a star if you liked it! 🌟
+                """
             )
     
-        if st.button("**:rainbow[Go to App]** 📛", help="Click here to go to the chatbot", use_container_width=False):
+        if st.button("**Go to App** 📛", help="Click here to go to the chatbot", use_container_width=False):
             st.session_state.page = "chat"
             st.rerun()
 
@@ -91,7 +103,7 @@ def home():
                 '''
                     ***What makes this app standout? -***
                     - *Uses a knowledge base from **experienced pet veterans**, to provide **verified and reliable information**.*
-                    - ***Adaptive RAG and custom Re-Ranking** methods to ensure most relevant responses*
+                    - ***Custom RAG and Re-Ranking** methods to ensure most relevant responses*
                     - ***Automated Bias detection and Mitigation pipeline**, uses AI-Agents to improve fairness*
                     - ***Integrated LLMOps** with scheduled data updation using **CI/CD***
                     - *Data pipeline for real-time data ingestion, transformation and chunking*
