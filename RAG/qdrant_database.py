@@ -78,7 +78,19 @@ class QdrantDatabase:
         hits = self.client.query_points(
             collection_name=collection_name, 
             query=self.encoder.encode(query).tolist(),
-            limit=limits 
+            limit=limits,
+            # conditional queries
+            query_filter=models.Filter(
+                must=[
+                    models.FieldCondition(
+                        key="word_count",
+                        range=models.Range(
+                            gte=40,
+                            lte=300
+                        )
+                    )
+                ]
+            ) 
         ).points
 
         res = []

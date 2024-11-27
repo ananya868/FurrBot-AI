@@ -6,6 +6,8 @@
         "dotenv",
         "fitz",
         "Furr",
+        "genai",
+        "generativeai",
         "ingestor",
         "Jina",
         "Lemmatization",

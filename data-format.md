@@ -13,10 +13,9 @@ Metadata is utilized to improve re-ranking for best match.
             {
                 'unique_id': 12,
                 'text': "para-para para para ....",
-                'pet_type': '
-                'bdogs',log_name': 'Labrador',
+                'pet_type': '',
+                'blog_name': 'Labrador',
                 'topic': 'Labrador training',
-                'keywords': ["training", "breeding", "food"],
                 'word_count': 180,
                 'chunk_size': 155,
                 'age_group': 'adult'
@@ -43,10 +42,8 @@ Metadata is utilized to improve re-ranking for best match.
                 'pet_type': 'birds',
                 'blog_name': 'Diet for birds',
                 'topic': 'is wheat good for birds?',
-                'keywords': ["diet", "breeding", "food"],
                 'word_count': 200, 
-                'chunk_size': 180, 
-                'age_group': 'adult'
+                'chunk_size': 180,
             }, 
             {
                 'unique_id': 2,
