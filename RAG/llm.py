@@ -56,26 +56,38 @@ def stream_gen(model_name: str, previous_conversation: list, context: str, user_
 
 
 
-def gen_gemini(context: str, query: str):
+def gen_gemini(previous_conversation: list, context: str, user_query: str):
     """  
     This function generates a response to a query based on the provided context.
     """
-    prompt = f"""
-        Given the query and the context please generate a response for the query using the context. 
-        Since, the query comes from chatbot, make sure your answers are not too long, and is suitable for chatbot.
-        Make sure to write a clear and concise answer without losing much information, also answer exactly what the user is querying. 
-        Only answer using the context, dont answer it by your own.
-
-        Context: {context}
-        Query: {query}
-    """
-
     genai.configure(api_key=os.environ.get('GEMINI_API_KEY'))
     model = genai.GenerativeModel("gemini-1.5-flash")
 
-    # Res 
-    response = model.generate_content(prompt)
-    text = response.text
+    conversation = str(previous_conversation)
+    prompt = f"""
+        You are a pet Care chatbot. You have to chat with the user, about pets using a RAG system. The conversation so far is:
+        {conversation}
+        
+        Here is some information I retrieved that might help you answer the user's query:
+        {context}
+        
+        User's query: {user_query}
+        
+        If the user is simply greeting you, then greet them back in a friendly manner, dont use the context. 
+        Otherwise, Based on the conversation and the retrieved information, generate the next response. 
+        If the query is related to a previous part of the conversation, feel free to provide a follow-up response, otherwise answer using the retrieved context.
 
-    return text 
+        Also, Your answer should be in a friendly way, make sure to use some markdown formatting like making the important points bold, or give point wise answer for better clearness, use emojis in most sentences to represent emotions (must do).
+    """
+
+    # Res
+    message_placeholder = st.empty()
+    answer = ""
+
+    response = model.generate_content(prompt)
+    answer += response.text
+    
+    message_placeholder.markdown(answer)
+
+    return answer
     

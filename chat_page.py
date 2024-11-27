@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit_extras 
 from openai import OpenAI
 import google.generativeai as genai 
-from annotated_text import annotated_text 
+from annotated_text import annotated_text, annotation
 from streamlit_theme import st_theme 
 from dotenv import load_dotenv
 
@@ -28,7 +28,7 @@ def save_chat_history(messages):
 
 
 # Main Chat Page
-def chat(model: str = 'gpt-3.5-turbo'):
+def chat():
     st.set_page_config(
         page_title="chat",
         page_icon="",
@@ -36,19 +36,37 @@ def chat(model: str = 'gpt-3.5-turbo'):
         initial_sidebar_state="expanded",
     )
 
-    # theme_dict = st_theme() 
-    # theme = theme_dict.get('base')
-    model = os.environ['model']
-        # st.markdown(
-        #     """
-        #     > *:rainbow[Start Chatting with the AI assistant!]* 🤖
-        #     """
-        # )
-    # st.title(model)
+    # get the model
+    model = st.session_state.model
+    if model is None: 
+        model = "gemini-1.5-flash"
+
+    if model=="gemini-1.5-flash": 
+        version = "Free" 
+    else:
+        version = "Paid"
+    
+    # theme 
+    base = st_theme().get('base')
+    if base=="dark":
+        color = "#323335"
+    else:
+        color = "#ecf0f6"
+
+
+    # (f"**{model}**", f"{version}", f"{color}"),
+    st.markdown(
+        annotated_text(
+            "*Using* - ",
+            annotation(f"{model}", f"{version}", background = f"{color}", font_family="monospace"),
+        )
+    )
+
     # Sidebar with a button to delete chat history4
     # if st.button(":rainbow[clear chat] 🗑️"):
     #     st.session_state.messages = []
     #     save_chat_history([])
+
     st.markdown("""
         <p style='text-align: left; 
             color: white; font-size: 20px;
@@ -62,20 +80,13 @@ def chat(model: str = 'gpt-3.5-turbo'):
     BOT_AVATAR = "🐰"
 
 
-    # Model Client
-    if model=="gemini-1.5-flash":
-        genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
-        client = genai.GenerativeModel(model)
-        current_model = "gemini"
-    elif "gpt" in model:
-        client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-        current_model = "openai"
-
+    # Clients
     # Qdrant Database client
     qdrant = QdrantDatabase(
         cluster_uri="https://904197e5-0ed4-48c7-9642-0611912311c7.us-east4-0.gcp.cloud.qdrant.io:6333", 
         api=os.getenv("DB_API")
     )
+
 
     """Session State Vars"""
     # Ensure openai_model is initialized in session state
@@ -86,12 +97,11 @@ def chat(model: str = 'gpt-3.5-turbo'):
     if "messages" not in st.session_state:
         st.session_state.messages = load_chat_history()
 
-    
     if 'initial_message_shown' not in st.session_state:
         st.session_state.initial_message_shown = False
     
     if not st.session_state.initial_message_shown:
-        initial_message = "Hi. FurrBot Welcomes you! 🐰 How can i help you?"
+        initial_message = "Hi.🐰 How can i help you?"
         st.session_state.messages.append({"role": "assistant", "content": initial_message})
         st.session_state.initial_message_shown = True
 
@@ -119,7 +129,10 @@ def chat(model: str = 'gpt-3.5-turbo'):
             context = ""
             for match in matches: 
                 context += " " + match.get('text')
-            answer = stream_gen(model, st.session_state.messages, context, prompt)
+            if model == "gemini-1.5-flash": 
+                answer = gen_gemini(st.session_state.messages, context, prompt)
+            else:
+                answer = stream_gen(model, st.session_state.messages, context, prompt)
     
         st.session_state.messages.append({"role": "assistant", "content": answer})
 

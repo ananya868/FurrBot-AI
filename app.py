@@ -20,10 +20,7 @@ if st.session_state.page == "home":
 elif st.session_state.page == "feed":
     feed()
 elif st.session_state.page == "chat":
-    if os.environ['model']!=None: 
-        chat(model=os.environ['model']) 
-    else:
-        chat()
+    chat()
 
 
 
@@ -105,8 +102,8 @@ st.sidebar.markdown(
         ```
     """
 )
-model = st.sidebar.selectbox(
-    "You can also choose LLM model -",
+model_option = st.sidebar.selectbox(
+    "**You can also choose LLM model** -",
     [
         "gpt-3.5-turbo",
         "gemini-1.5-flash (Free) (not recommended)",
@@ -117,9 +114,15 @@ model = st.sidebar.selectbox(
     ],
     help="Select the model you want to use for the chatbot",
 )
-os.environ['model'] = model.split(" ")[0]
-st.sidebar.markdown(f"Current Model: {os.environ['model']}")
+# os.environ['model'] = model_option.split(" ")[0]
+current_model = model_option.split(" ")[0]
 
+if 'model' not in st.session_state:
+    st.session_state.model = current_model  # Set initial model if not in session state
+else:
+    if st.session_state.model != current_model :
+        st.session_state.model = current_model
+        st.experimental_rerun()
 
 
 with st.container():
