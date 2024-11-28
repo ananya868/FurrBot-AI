@@ -1,4 +1,4 @@
-Data Format guidelines:
+Data Format guidelines: (Expected)
 This text document provides information on how the data should be formatted for usage. Please go through the following guidelines before 
 constructing the dataset!
 

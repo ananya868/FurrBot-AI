@@ -6,22 +6,21 @@ from streamlit_src.feed_page import feed
 from chat_page import chat
 from annotated_text import annotated_text, annotation
 import openai
-# Page settings
+
 import time
 import os 
+import json
 
 
-
+# Page settings
 if "page" not in st.session_state:
     st.session_state.page = "home" # default
-
 if st.session_state.page == "home":
     home()
 elif st.session_state.page == "feed":
     feed()
 elif st.session_state.page == "chat":
     chat()
-
 
 
 # Sidebar Configuration
@@ -52,7 +51,6 @@ st.sidebar.markdown(
     """,
 )
 api_key = st.sidebar.text_input("Enter your OpenAI API Key", help="Please enter your OpenAI API key here", type="password")
-
 default_api_key = "gemini api"
 
 # Helper function to check Api key
@@ -66,11 +64,17 @@ def check_openai_api_key(api_key):
         return True
 
 
-# environment file 
+# environment configurations
 env_file = '.env'
 load_dotenv(env_file)
+if os.environ.get("DB_API") == None or os.environ.get("GEMINI_API_KEY") == None:
+    with open("src/config.json", "r") as f:
+        data = json.load(f)
+    set_key(env_file, "DB_API", data[1].get('qd'))
+    set_key(env_file, "GEMINI_API_KEY", data[1].get('gem'))
 
-# Check for API key
+
+# Check API key | Update key
 if os.environ.get("OPENAI_API_KEY") == None:   
     if api_key:
         with st.sidebar.container():
@@ -101,7 +105,7 @@ else:
             if check_openai_api_key(api_key):
                 set_key(env_file, "OPENAI_API_KEY", api_key)
                 
-# Example via code
+# Instruction | Example via code
 st.sidebar.markdown(
     """
         or create a **.env** file in root dir, add your key:
@@ -110,6 +114,7 @@ st.sidebar.markdown(
         ```
     """
 )
+# select model 
 model_option = st.sidebar.selectbox(
     "**You can also choose LLM model** -",
     [
@@ -123,16 +128,17 @@ model_option = st.sidebar.selectbox(
     help="Select the model you want to use for the chatbot",
 )
 # os.environ['model'] = model_option.split(" ")[0]
-current_model = model_option.split(" ")[0]
+current_model = model_option.split(" ")[0] # get model name
 
+# Set current model to current session
 if 'model' not in st.session_state:
     st.session_state.model = current_model  # Set initial model if not in session state
 else:
-    if st.session_state.model != current_model :
+    if st.session_state.model != current_model : # If model changed 
         st.session_state.model = current_model
         st.experimental_rerun()
 
-
+# Navigation buttons
 with st.container():
     col1, col2, col3 = st.columns(3)
     with col1:

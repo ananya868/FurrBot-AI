@@ -73,7 +73,7 @@ class QdrantDatabase:
         )
 
     
-
+    # Query database using this function
     def query_db(self, collection_name: str, limits: int, query: str):
         hits = self.client.query_points(
             collection_name=collection_name, 

@@ -5,7 +5,7 @@
 # We ll pre-process the data to remove miscellaneous text, to make it ready for retrieval systems, and LLM use 
 
 
-- Potential Pre-processing Steps: 
+- Pre-processing Steps (Expected): 
     - Text Extraction
     - Text Cleaning (remove noise and lower case it) 
     - NER, Keyword Extraction methods, or Lemmatization
@@ -15,7 +15,7 @@
 
 
 
-Step wise code: 
+Data Steps: 
 
 # Data Pipeline
 data ingestion -> data extraction -> data preprocessing -> chunking -> metadata building -> save data ->   Embedding methods and indexing

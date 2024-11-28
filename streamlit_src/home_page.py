@@ -5,7 +5,7 @@ from annotated_text import annotated_text
 def home():
     st.set_page_config(
         page_title="FurrBot",
-        page_icon="❄️️",
+        page_icon="🐰",
         layout="wide",
         initial_sidebar_state="expanded",
     )
@@ -13,9 +13,8 @@ def home():
     col1, col2 = st.columns(2)  
     with col1:
         with st.container(border=True):
-            st.image("assets/home_art.png", width=650) 
+            st.image("assets/buddy.png", width=620) 
     with col2:
-        # st.markdown("# Furr Bot 🐰")
         st.markdown("""
             <h3 style='text-align: left; 
                 color: white; font-size: 40px;

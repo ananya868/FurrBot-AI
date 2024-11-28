@@ -1,5 +1,5 @@
 # Dataset 🗄️ 
-This text file shows the overall information about the data/knowledge base for our chatbot! Guidelines on metadata and data-format can be found on data-format-guide.txt file.
+This text file shows the overall information about the data/knowledge base for our chatbot! Guidelines on metadata and data-format can be found on data/data-format-guide.txt file.
 
 *'...' indicates presence of sub categories*
 
