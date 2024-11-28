@@ -13,9 +13,11 @@
         "Lemmatization",
         "Milvus",
         "misclleneous",
+        "numpy",
         "petmd",
         "preprocesses",
         "shortuuid",
+        "streamlit",
         "tqdm",
         "updation",
         "upserting"
