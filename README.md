@@ -17,7 +17,11 @@ More dynamic and can stay up-to-date because it retrieves current and specific i
 - Bias detection and mitigation using AI-Agents
 
 ## Furr Bot Workflow 
---Flow chart diagram--
+Given below is a working flow diagram 
+<p align="center">
+  <img src="assets/flow_diag.png" width="750" />
+</p>
+
 
 --point wise explanations--
 
