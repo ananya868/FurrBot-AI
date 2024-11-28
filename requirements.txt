@@ -8,7 +8,9 @@ fitz==1.24.2
 shortuuid==1.0.13
 nltk==3.8.1
 regex
-
+streamlit-extras==0.5.0
+sentence-transformers==2.7.0
+st-theme==1.2.3
 
 # models, databases
 openai==1.54.4
