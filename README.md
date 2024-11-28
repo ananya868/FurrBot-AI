@@ -1,5 +1,5 @@
 # Furr Bot - AI
-A RAG-based Chatbot designed to assist pet care owners, pet veterans with verified and reliable information for their pets! The app sources its knowledge from a database containing pet blogs written by verified pet doctors. Custom Re-Ranking method has been used to filter out the best matches. Integrated CI/CD for scheduled data updation using Github Actions to ensure latest data! More dynamic and can stay up-to-date because it retrieves current and specific information from its knowledge base, regardless of the model’s training data.
+A RAG-based Chatbot designed to assist pet care owners, pet veterans with verified and reliable information for their pets! The app sources its knowledge from a database containing pet blogs written by verified pet doctors. Custom Re-Ranking method has been used to filter out the best matches. Integrated CI/CD for scheduled data updation using Github Actions to ensure latest data! Autmated data pipeline to handle data ingestion, pre-processing, chunking and metadata creation tasks. More dynamic and can stay up-to-date because it retrieves current and specific information from its knowledge base, regardless of the model’s training data.
 
 <p align="center">
   <img src="assets/home_page.png" width="850" />
@@ -10,9 +10,9 @@ More dynamic and can stay up-to-date because it retrieves current and specific i
 
 **Core Features:** 
 - Chat about anything related to your pet, being it health, diet, training, grooming, etc.
-- More than 18 animal categories (detailed list of animals mentioned in raw_data_info.md file)
+- More than 18 animal categories (detailed list in raw-data-info.md)
 - 200+ Dog breeds, 60+ Cat breeds, 100+ horse breeds, etc
-- Prompt tuning to ensure answers are friendly and well explained
+- Prompt tuning to improve answers and context aware conversation
 - Real-time data updation using CI/CD
 - Bias detection and mitigation using AI-Agents
 
@@ -22,7 +22,7 @@ More dynamic and can stay up-to-date because it retrieves current and specific i
 --point wise explanations--
 
 ## How to Use? 
-Install the app using pip or suitable installer package. Recommended python verion -> 3.11.5. Please setup the repo before usage, using the instructions below:
+Install the app using pip or an appropriate package installer. The recommended Python version is between 3.11.0 and 3.12. Please set up the repository before use by following the instructions below.
 
 ```bash
   git clone https://github.com/ananya868/FurrBot-pet-care-chatbot.git
@@ -60,7 +60,7 @@ The file structure is divided into three categories: Streamlit app, data pipelin
   - data_pre_processing.py
   - data_chunking.py
   - metadata_creation.py
-- **steps**
+- **steps** (scripts to implement data processes)
   - data_ingestion_step.py
   - data_extraction_step.py
   - data_preprocessing_step.py
