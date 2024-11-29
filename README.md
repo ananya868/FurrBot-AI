@@ -20,8 +20,8 @@ More dynamic and can stay up-to-date because it retrieves current and specific i
 Install the app using pip or an appropriate package installer. The recommended Python version is between 3.11.0 and 3.12. Please set up the repository before use by following the instructions below.
 
 ```bash
-  git clone https://github.com/ananya868/FurrBot-pet-care-chatbot.git
-  cd FurrBot-pet-care-chatbot
+  git clone https://github.com/ananya868/FurrBot-AI.git
+  cd FurrBot-AI
   ```
   Create a virtual env, activate and install dependencies: 
   ```bash
