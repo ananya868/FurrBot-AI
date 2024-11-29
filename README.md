@@ -16,6 +16,40 @@ More dynamic and can stay up-to-date because it retrieves current and specific i
 - Real-time data updation using CI/CD
 - Bias detection and mitigation using AI-Agents
 
+## How to Use? 
+Install the app using pip or an appropriate package installer. The recommended Python version is between 3.11.0 and 3.12. Please set up the repository before use by following the instructions below.
+
+```bash
+  git clone https://github.com/ananya868/FurrBot-pet-care-chatbot.git
+  cd FurrBot-pet-care-chatbot
+  ```
+  Create a virtual env, activate and install dependencies: 
+  ```bash
+  pip install -r requirements.txt
+  ```
+The app uses either OpenAI or Gemini to generate responses. You can either create a .env file in the root dir and add your openai key as: 
+```bash
+   OPENAI_API_KEY="sk-14saq2f********"
+```
+or you can fill the api key in the UI sidebar in streamlit app.
+
+**Note: You can choose not to enter your api key, in the case, Gemini-1.5-flash will be used as default model (You dont have to enter api key for this, its preconfigured)**
+
+  Run the app:
+  ```bash
+  streamlit run app.py    
+```
+## Furr Bot Workflow 
+Given below is the working flow chart of the app - 
+Flow Diagram:
+<p align="center">
+  <img src="assets/flow_diag.png" width="750" />
+</p>
+
+- **Data pipeline and Pre-processing:** The system begins by collecting data primarily from PDF documents. This data undergoes thorough cleaning and preprocessing to ensure its quality and suitability for further processing. The documents are then chunked into smaller, manageable segments, and metadata is added to each chunk for efficient retrieval and processing.
+- **Vector Database and RAG:** The preprocessed documents are converted into vector embeddings using a suitable embedding model. These embeddings are stored in a vector database, such as Qdrant, enabling efficient similarity search. When a user query is received, the system retrieves the most relevant context from the database using techniques like semantic search and keyword matching.
+- **Language Model and Response Generation:** A powerful language model, such as a large language model (LLM), is employed to generate human-quality text responses. The model leverages the provided query and relevant context to produce coherent and informative answers.
+
 ### Here's a one block code for the Retrieval and Generation module
 
 ```python
@@ -79,42 +113,6 @@ More dynamic and can stay up-to-date because it retrieves current and specific i
       )
     generated_answer = answer.choices[0].message["content"]
     print(generated_answer) #-> Final improved answer 
-```
-
-
-## Furr Bot Workflow 
-Given below is the working flow chart of the app - 
-Flow Diagram:
-<p align="center">
-  <img src="assets/flow_diag.png" width="750" />
-</p>
-
-- **Data pipeline and Pre-processing:** The system begins by collecting data primarily from PDF documents. This data undergoes thorough cleaning and preprocessing to ensure its quality and suitability for further processing. The documents are then chunked into smaller, manageable segments, and metadata is added to each chunk for efficient retrieval and processing.
-- **Vector Database and RAG:** The preprocessed documents are converted into vector embeddings using a suitable embedding model. These embeddings are stored in a vector database, such as Qdrant, enabling efficient similarity search. When a user query is received, the system retrieves the most relevant context from the database using techniques like semantic search and keyword matching.
-- **Language Model and Response Generation:** A powerful language model, such as a large language model (LLM), is employed to generate human-quality text responses. The model leverages the provided query and relevant context to produce coherent and informative answers.
-
-## How to Use? 
-Install the app using pip or an appropriate package installer. The recommended Python version is between 3.11.0 and 3.12. Please set up the repository before use by following the instructions below.
-
-```bash
-  git clone https://github.com/ananya868/FurrBot-pet-care-chatbot.git
-  cd FurrBot-pet-care-chatbot
-  ```
-  Create a virtual env, activate and install dependencies: 
-  ```bash
-  pip install -r requirements.txt
-  ```
-The app uses either OpenAI or Gemini to generate responses. You can either create a .env file in the root dir and add your openai key as: 
-```bash
-   OPENAI_API_KEY="sk-14saq2f********"
-```
-or you can fill the api key in the UI sidebar in streamlit app.
-
-**Note: You can choose not to enter your api key, in the case, Gemini-1.5-flash will be used as default model (You dont have to enter api key for this, its preconfigured)**
-
-  Run the app:
-  ```bash
-  streamlit run app.py    
 ```
 
 ## File Structure
