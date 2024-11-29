@@ -4,6 +4,7 @@
         "chromadb",
         "chunker",
         "dotenv",
+        "Everytime",
         "fitz",
         "Furr",
         "genai",

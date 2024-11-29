@@ -60,11 +60,17 @@ def chat():
         "*Using* -- ",
         annotation(f"{model}", f"{version}", background = f"{color}", font_family="monospace"),
     )
-
-    # Sidebar with a button to delete chat history | uncomment this for delete button
-    if st.button("clear chat 🗑️"):
+    
+    # Everytime the app is run for firs time, run this function 
+    if 'initial_run' not in st.session_state:
         st.session_state.messages = []
         save_chat_history([])
+        st.session_state.initial_run = True
+
+    # Sidebar with a button to delete chat history | uncomment this for delete button
+    # if st.button("clear chat 🗑️"):
+    #     st.session_state.messages = []
+    #     save_chat_history([])
 
     st.markdown("""
         <p style='text-align: left; 

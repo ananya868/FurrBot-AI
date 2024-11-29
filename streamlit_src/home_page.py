@@ -32,8 +32,9 @@ def home():
         )
         with st.expander("Flow of the App!"):
             st.write('''
-                This is the space for the flow diagram
+                Working flow chart of the app - 
             ''')
+            st.image("assets/flow_diag.png", width=660)
         with st.expander("Tech Stack Used"):
             st.write(
                 ''' 
@@ -43,7 +44,7 @@ def home():
         with st.expander("Demo Video"):
             st.write(
                 annotated_text(
-                    ("This is the space for the demo video", "", "#18545b"), 
+                    ("soon ..", "", "#18545b"), 
                 )
             )
         with st.expander("About Me"):
