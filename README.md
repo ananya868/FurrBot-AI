@@ -16,14 +16,82 @@ More dynamic and can stay up-to-date because it retrieves current and specific i
 - Real-time data updation using CI/CD
 - Bias detection and mitigation using AI-Agents
 
+### Here's a one block code for the Retrieval and Generation module
+
+```python
+    from qdrant_client import models, QdrantClient
+    from sentence_transformers import SentenceTransformer
+    from openai import OpenAI
+
+    # --Retrieval-- 
+    client = QdrantClient("#cluster uri here", api_key="#qdrant api here")
+    encoder = SentenceTransformer("#embedding model name here")
+
+    # Assuming there is a collection created (with same embedding dimensions) (vectors upserted) 
+    hits = client.query_points(
+        collection_name="#your collection name",
+        query=encoder.encode("#user query").tolist()
+        limit=5 # no. of matches
+        query_filter=models.Filter(  # optional
+              must=[
+                  models.FieldCondition(
+                      key="word_count",
+                      range=models.Range(
+                          gte=40 # return paras with min 40 words
+                      )
+                  )
+              ]
+        )
+    ).points
+
+    responses = []
+    for hit in hits:
+        hit.payload['score'] = hit.score # get scores
+        responses.append(hit.payload
+    # responses -> list of best matched paras
+
+    # --Augmentation-- 
+    for para in responses:
+        context += " " + para.get('text') # use 'text' field for para
+
+    # prompt
+    user_query = "# user query"
+    prompt = f"""
+            Here is some information I retrieved that might help you answer the user's query:
+            Context: {context}
+            User's query: {user_query}
+            Based on the information provided in the context, please provide a comprehensive and informative response to the user's query, ensuring it's accurate, relevant, clear, and engaging.
+        """
+
+    # --Generation--
+    chat_client = OpenAI(api_key="# api key here")
+    answer = chat_client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[
+                {
+                    "role": "system",
+                    "content": "Your are a LLM used to improve answers using the context and a query provided"},
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+      )
+    generated_answer = answer.choices[0].message["content"]
+    print(generated_answer) #-> Final improved answer 
+```
+
+
 ## Furr Bot Workflow 
-Given below is a working flow diagram 
+Given below is the working flow chart of the app - 
+Flow Diagram:
 <p align="center">
   <img src="assets/flow_diag.png" width="750" />
 </p>
 
-
---point wise explanations--
+- **Data pipeline and Pre-processing:** The system begins by collecting data primarily from PDF documents. This data undergoes thorough cleaning and preprocessing to ensure its quality and suitability for further processing. The documents are then chunked into smaller, manageable segments, and metadata is added to each chunk for efficient retrieval and processing.
+- **Vector Database and RAG:** The preprocessed documents are converted into vector embeddings using a suitable embedding model. These embeddings are stored in a vector database, such as Qdrant, enabling efficient similarity search. When a user query is received, the system retrieves the most relevant context from the database using techniques like semantic search and keyword matching.
+- **Language Model and Response Generation:** A powerful language model, such as a large language model (LLM), is employed to generate human-quality text responses. The model leverages the provided query and relevant context to produce coherent and informative answers.
 
 ## How to Use? 
 Install the app using pip or an appropriate package installer. The recommended Python version is between 3.11.0 and 3.12. Please set up the repository before use by following the instructions below.
@@ -140,11 +208,11 @@ Feel free to contribute to this repo! Given below are some potential ways you ca
     - Currently, the repo utilize cloud based LLMs, Local LLMs can be setup to save costs, extending flexibility of domain-specific language models, even fine-tuning small llms for this specific cases.
     - An Automated LLM Training and Deployment Pipeline can be implemented to streamline the process of training, fine-tuning, evaluating, and deploying models to scale
 
-more .. 
+## Contact 
+Feel free to reach me out for collaborations, queries or anything! Also, if you liked the repo, please give a start to this repo! 
 
-## Contact me 
-Feel free to reach me out for collaborations, queries or anything! 
-
+- Email: ananya8154@gmail.com
+- linkedIn: https://www.linkedin.com/in/ananya8154/
 
 
 
