@@ -74,6 +74,12 @@ if os.environ.get("DB_API") == None or os.environ.get("GEMINI_API_KEY") == None:
     set_key(env_file, "GEMINI_API_KEY", data[1].get('gem'))
 
 
+# remove prev api if found 
+if "cleared_api_cache" not in st.session_state: 
+    if os.environ.get("OPENAI_API_KEY") != None:
+        os.environ.pop("OPENAI_API_KEY") # remove it 
+        st.session_state.cleared_api_cache = True
+
 # Check API key | Update key
 if os.environ.get("OPENAI_API_KEY") == None:   
     if api_key:
