@@ -8,10 +8,14 @@ import streamlit as st
 def stream_gen(model_name: str, previous_conversation: list, context: str, user_query: str):
     """
     Generate an answer from a large language model (LLM) using the OpenAI API.
-    """     
-    client = OpenAI(
-        api_key=os.environ.get("OPENAI_API_KEY")
-    )
+    """   
+    try:  
+        client = OpenAI(
+            api_key=os.environ.get("OPENAI_API_KEY")
+        )
+    except Exception as e:
+        print("Please check the OpenAI API key!")
+        print("Error:", e)
     
     # convert the conversation to string
     conversation = str(previous_conversation)

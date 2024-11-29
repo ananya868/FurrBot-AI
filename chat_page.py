@@ -62,9 +62,9 @@ def chat():
     )
 
     # Sidebar with a button to delete chat history | uncomment this for delete button
-    # if st.button("clear chat 🗑️"):
-    #     st.session_state.messages = []
-    #     save_chat_history([])
+    if st.button("clear chat 🗑️"):
+        st.session_state.messages = []
+        save_chat_history([])
 
     st.markdown("""
         <p style='text-align: left; 

@@ -118,8 +118,8 @@ st.sidebar.markdown(
 model_option = st.sidebar.selectbox(
     "**You can also choose LLM model** -",
     [
-        "gpt-3.5-turbo",
         "gemini-1.5-flash (Free) (not recommended)",
+        "gpt-3.5-turbo",
         "gpt-4.0 (Good)",
         "gpt-4-turbo (Above Average)",
         "gpt-4o-mini (Faster)",
