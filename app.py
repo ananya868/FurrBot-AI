@@ -85,8 +85,8 @@ if os.environ.get("OPENAI_API_KEY") == None:
                             <p style="text-align: center;"><b>Api Key Working</b> ✅<br> Key added Successfully! </p>
                         """, unsafe_allow_html=True
                     )
-                    # os.environ["test_key"] = api_key # Sets in memory
-                    set_key(env_file, "OPENAI_API_KEY", api_key) # Sets in .env file
+                    os.environ["OPENAI_API_KEY"] = api_key # Sets in memory
+                    # set_key(env_file, "OPENAI_API_KEY", api_key) # Sets in .env file
                 else:
                     st.sidebar.markdown(
                         """
@@ -103,7 +103,8 @@ else:
     if api_key:
         if api_key != os.environ.get("OPENAI_API_KEY"):
             if check_openai_api_key(api_key):
-                set_key(env_file, "OPENAI_API_KEY", api_key)
+                # set_key(env_file, "OPENAI_API_KEY", api_key)
+                os.environ["OPENAI_API_KEY"] = api_key # temporary
                 
 # Instruction | Example via code
 st.sidebar.markdown(
