@@ -4,7 +4,6 @@ pandas==2.0.3
 streamlit==1.35.0
 st-annotated-text==4.0.1 
 python-dotenv==1.0.1
-fitz==1.24.2
 shortuuid==1.0.13
 nltk==3.8.1
 regex
