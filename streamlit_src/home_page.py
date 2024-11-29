@@ -83,8 +83,8 @@ def home():
                     
                     via Code:
                     ```bash
-                    git clone https://github.com/ananya868/FurrBot-pet-care-chatbot.git
-                    cd FurrBot-pet-care-chatbot
+                    git clone https://github.com/ananya868/FurrBot-AI.git
+                    cd FurrBot-AI
                     ```
                     Create a virtual env, activate and install dependencies: 
                     ```bash
