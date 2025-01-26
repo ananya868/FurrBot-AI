@@ -1,5 +1,5 @@
 import streamlit as st 
-from annotated_text import annotated_text
+# from annotated_text import annotated_text
 import streamlit_extras
 from streamlit_theme import st_theme
 
