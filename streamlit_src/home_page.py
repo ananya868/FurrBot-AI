@@ -1,5 +1,5 @@
 import streamlit as st 
-from annotated_text import annotated_text
+# from annotated_text import annotated_text
 
 
 def home():
@@ -43,9 +43,7 @@ def home():
             )
         with st.expander("Demo Video"):
             st.write(
-                annotated_text(
-                    ("soon ..", "", "#18545b"), 
-                )
+                "soon .."
             )
         with st.expander("About Me"):
             co1, co2, co3, co4, co5= st.columns(5)
