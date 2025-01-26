@@ -3,7 +3,7 @@ import streamlit as st
 import streamlit_extras 
 from openai import OpenAI
 import google.generativeai as genai 
-from annotated_text import annotated_text, annotation
+# from annotated_text import annotated_text, annotation
 from streamlit_theme import st_theme 
 
 from RAG.llm import ( 
@@ -56,9 +56,8 @@ def chat():
 
 
     # Display the model and version
-    annotated_text(
-        "*Using* -- ",
-        annotation(f"{model}", f"{version}", background = f"{color}", font_family="monospace"),
+    st.write(
+        "*Using* -- "    
     )
     
     # Everytime the app is run for firs time, run this function 
