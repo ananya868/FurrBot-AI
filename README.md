@@ -1,8 +1,6 @@
 # Furr Bot - AI
 A RAG-based Chatbot designed to assist pet care owners, pet veterans with verified and reliable information for their pets! The app sources its knowledge from a database containing pet blogs written by verified pet doctors. Custom Re-Ranking method has been used to filter out the best matches. Integrated CI/CD for scheduled data updation using Github Actions to ensure latest data! Autmated data pipeline to handle data ingestion, pre-processing, chunking and metadata creation tasks. More dynamic and can stay up-to-date because it retrieves current and specific information from its knowledge base, regardless of the model’s training data.
 
-*Try it out* - [Furr Bot Streamlit App](https://furrbot.streamlit.app/)
-
 <p align="center">
   <img src="assets/home_page.png" width="850" />
 </p>
@@ -19,7 +17,7 @@ More dynamic and can stay up-to-date because it retrieves current and specific i
 - Bias detection and mitigation using AI-Agents
 
 ## How to Use? 
-Try it out on streamlit community cloud app - [Furr Bot Streamlit App](https://furrbot.streamlit.app/) or 
+Streamlit community deployed version of this app is currently under development, please use the method below to use the app:
 
 Install the app using pip or an appropriate package installer. The recommended Python version is between 3.11.0 and 3.12. Please set up the repository before use by following the instructions below.
 
