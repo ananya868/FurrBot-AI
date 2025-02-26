@@ -5,6 +5,8 @@ A RAG-based Chatbot designed to assist pet care owners, pet veterans with verifi
   <img src="assets/home_page.png" width="850" />
 </p>
 
+[https://github.com/ananya868/FurrBot-AI/issues/2#issue-2880930961](https://github.com/user-attachments/assets/02e2aecf-4e75-4e60-9ade-23a34ef9e009)
+
 ## Explore  
 More dynamic and can stay up-to-date because it retrieves current and specific information from its knowledge base, regardless of the model’s training data. Given below is the list of core feaures integrated in the chatbot!
 
