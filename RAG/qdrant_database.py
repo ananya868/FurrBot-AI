@@ -1,6 +1,4 @@
 # Script for all operations on Qdrant database (query, upserting, etc)
-
-
 from qdrant_client import models, QdrantClient 
 from sentence_transformers import SentenceTransformer
 import os

@@ -127,7 +127,7 @@ def chat():
         with st.chat_message("assistant", avatar=BOT_AVATAR):
 
             # Retrieval (takes 1.3 seconds)
-            matches = qdrant.query_db(collection_name='furr_bot', limits=2, query=prompt)
+            matches = qdrant.query_db(collection_name='furrbot', limits=2, query=prompt)
             # Get context from the matches
             context = ""
             for match in matches: 
