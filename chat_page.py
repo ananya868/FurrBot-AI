@@ -86,7 +86,7 @@ def chat():
     # Clients
     # Qdrant Database client (takes 16 second to load) (once loaded, don't need to be reloaded)
     qdrant = QdrantDatabase(
-        cluster_uri="https://904197e5-0ed4-48c7-9642-0611912311c7.us-east4-0.gcp.cloud.qdrant.io:6333", 
+        cluster_uri="https://e06f23a0-bcc3-4428-ac01-07e17fa4b92f.us-east4-0.gcp.cloud.qdrant.io:6333", 
         api=os.getenv("DB_API")
     )
 
