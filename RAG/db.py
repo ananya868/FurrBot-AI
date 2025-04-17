@@ -38,6 +38,19 @@ class PineconeDB(DB):
         except Exception as e:
             raise Exception(f"Failed to initialize Pinecone index: {e}")
 
+    def check_connection(self) -> bool:
+        """
+        Check if the connection to the Pinecone index is valid.
+
+        Returns:
+            bool: True if the connection is valid, False otherwise.
+        """
+        try:
+            self.index.describe_index_stats()
+            return True
+        except Exception as e:
+            raise Exception(f"Database connection error: {e}")
+
     def query(
         self, 
         query: str, 

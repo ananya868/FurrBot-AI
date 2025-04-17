@@ -1,163 +1,244 @@
-# Main Script to run the streamlit app for the chatbot
-import streamlit as st
-from dotenv import load_dotenv, set_key
-from streamlit_src.home_page import home
-from streamlit_src.feed_page import feed
-from chat_page import chat
-from annotated_text import annotated_text, annotation
-import openai
+"""
+Furrbot Chatbot API
 
-import time
-import os 
-import json
+# Endpoints:
+- /ask: Ask a question to the chatbot.
+- /health: Check the health of the chatbot and its components.
+- /: Welcome message.
+"""
 
+import os, json 
+import asyncio
+from pydantic import BaseModel, Field
+from fastapi import FastAPI, Depends, HTTPException
 
-# Page settings
-if "page" not in st.session_state:
-    st.session_state.page = "home" # default
-if st.session_state.page == "home":
-    home()
-elif st.session_state.page == "feed":
-    feed()
-elif st.session_state.page == "chat":
-    chat()
+from RAG.llm import LLM 
+from RAG.db import PineconeDB
+from RAG.prompt import PromptTemplate
 
 
-# Sidebar Configuration
-st.sidebar.image("assets/ai_art.png", width=250, use_column_width=True)
-# Sidebar Logo
-st.sidebar.markdown("""
-            <p style='text-align: left; 
-                color: white; font-size: 20px;
-                background: linear-gradient(to right, #f32170, #ff6b08, #cf23cf, #eedd44); 
-                    -webkit-text-fill-color: transparent; 
-                    -webkit-background-clip: text;  
-                font-family: monospace ;'><b>Explore the Chatbot</b> 🐰</p>
-        """, unsafe_allow_html=True)
-
-with st.sidebar.container():
-    co1, co2 = st.columns(2)
-    with co1:
-        st.page_link("https://github.com/ananya868/FurrBot-pet-care-chatbot", label="Src Code", icon="🖱️")
-    with co2: 
-        st.page_link("https://github.com/ananya868", label="My Github", icon="🐱")
+# Schemas 
+class InputSchema(BaseModel):
+    question: str = Field(..., description="User query for the chatbot.")
+    namespace: str = Field(..., description="Namespace for the database.")
+    previous_conversation: list = Field([], description="Previous conversation history.")
+    llm_provider: str = Field(..., description="LLM provider (e.g., 'openai', 'anthropic')")
+    llm_model: str = Field(..., description="LLM model name")
 
 
-# OpenAI API input
-st.sidebar.markdown(
-    """ 
-        *Please provide your openai api key*
-        *(Don't Worry! This app doesn't store api key)*
-    """,
-)
-api_key = st.sidebar.text_input("Enter your OpenAI API Key", help="Please enter your OpenAI API key here", type="password")
-default_api_key = "gemini api"
-
-# Helper function to check Api key
-def check_openai_api_key(api_key):
-    client = openai.OpenAI(api_key=api_key)
-    try:
-        client.models.list()
-    except openai.AuthenticationError:
-        return False
-    else:
-        return True
-
-
-# environment configurations
-env_file = '.env'
-load_dotenv(env_file)
-if os.environ.get("DB_API") == None or os.environ.get("GEMINI_API_KEY") == None:
-    with open("src/config.json", "r") as f:
-        data = json.load(f)
-    set_key(env_file, "DB_API", data[1].get('qd'))
-    set_key(env_file, "GEMINI_API_KEY", data[1].get('gem'))
-
-
-# remove prev api if found 
-if "cleared_api_cache" not in st.session_state: 
-    if os.environ.get("OPENAI_API_KEY") != None:
-        os.environ.pop("OPENAI_API_KEY") # remove it 
-        st.session_state.cleared_api_cache = True
-
-# Check API key | Update key
-if os.environ.get("OPENAI_API_KEY") == None:   
-    if api_key:
-        with st.sidebar.container():
-            with st.spinner('checking your API key ...'):
-                if check_openai_api_key(api_key):
-                    st.sidebar.markdown(
-                        """
-                            <p style="text-align: center;"><b>Api Key Working</b> ✅<br> Key added Successfully! </p>
-                        """, unsafe_allow_html=True
-                    )
-                    os.environ["OPENAI_API_KEY"] = api_key # Sets in memory
-                    # set_key(env_file, "OPENAI_API_KEY", api_key) # Sets in .env file
-                else:
-                    st.sidebar.markdown(
-                        """
-                            <p style="text-align: center;"><b>Invalid Api Key</b> 🙅</p>
-                        """, unsafe_allow_html=True
-                    )       
-else: 
-    if check_openai_api_key(os.environ.get("OPENAI_API_KEY")):
-        st.sidebar.markdown(
-            """
-                <p style="text-align: center;"><b>Key already set</b> ✅<br> </p>
-            """, unsafe_allow_html=True 
-        )
-    if api_key:
-        if api_key != os.environ.get("OPENAI_API_KEY"):
-            if check_openai_api_key(api_key):
-                # set_key(env_file, "OPENAI_API_KEY", api_key)
-                os.environ["OPENAI_API_KEY"] = api_key # temporary
-                
-# Instruction | Example via code
-st.sidebar.markdown(
-    """
-        or create a **.env** file in root dir, add your key:
-        ```bash
-        OPENAI_API_KEY="sk-14saq2f********"
-        ```
-    """
-)
-# select model 
-model_option = st.sidebar.selectbox(
-    "**You can also choose LLM model** -",
-    [
-        "gemini-1.5-flash (Free) (not recommended)",
-        "gpt-3.5-turbo",
-        "gpt-4.0 (Good)",
-        "gpt-4-turbo (Above Average)",
-        "gpt-4o-mini (Faster)",
-        "gpt-4o (Best in class)"
-    ],
-    help="Select the model you want to use for the chatbot",
-)
-# os.environ['model'] = model_option.split(" ")[0]
-current_model = model_option.split(" ")[0] # get model name
-
-# Set current model to current session
-if 'model' not in st.session_state:
-    st.session_state.model = current_model  # Set initial model if not in session state
-else:
-    if st.session_state.model != current_model : # If model changed 
-        st.session_state.model = current_model
-        st.experimental_rerun()
-
-# Navigation buttons
-with st.container():
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        if st.sidebar.button("Home", help="Click here to go to the home page", use_container_width=True):
-            st.session_state.page = "home"
-            st._experimental_rerun()
-    # with col2:
-    #     if st.sidebar.button("Feed", help="Click here to go to the feed page", use_container_width=True):
-    #         st.session_state.page = "feed"
-    #         st._experimental_rerun()
-    with col3:
-        if st.sidebar.button("Chatbot", help="Click here to go to the chatbot", use_container_width=True):
-            st.session_state.page = "chat"
-            st._experimental_rerun()
+# Worker Class 
+class PetChatbot: 
+    def __init__(self, llm_provider: str, llm_model: str) -> None:
+        # Init LLM Client 
+        try:
+            self.llm = LLM.init_llm(
+                provider_name = llm_provider, 
+                model = llm_model
+            )
+        except Exception as e:
+            raise Exception(f"Error initializing LLM: {e}")
+        
+        # Init DB Client
+        try:
+            self.db = PineconeDB()
+        except Exception as e:
+            raise Exception(f"Error initializing DB: {e}")
     
+    def retrieve_context(self, query: str, namespace: str, n: int = 4) -> str:
+        """
+        Retrieve context from the database.
+        
+        Args:
+            query (str): The query string.
+            n (int): The number of top results to return.
+        
+        Returns:
+            str: The context string.
+        """
+        # Query db 
+        results, _ = self.db.query(
+            query = query, 
+            namespace = namespace, 
+            top_n = n
+        )
+        # Format context
+        context = " ".join([i["fields"]["chunk_text"] for i in results.result.hits])
+        return context
+    
+    def generate_answer(self, query: str, context: str, previous_conversation: list = []) -> str:
+        """
+        Generate an answer using the LLM.
+        
+        Args:
+            query (str): The query string.
+            context (str): The context string.
+        
+        Returns:
+            str: The answer string.
+        """
+        # Build prompt 
+        template = PromptTemplate()
+        prompt = template.rag_prompt(
+            user_query = query, 
+            context = context, 
+            previous_conversation = previous_conversation
+        )
+        # Generate answer
+        answer = self.llm.generate_text(
+            prompt = prompt
+        )
+        # Parse to dict 
+        answer = json.loads(answer)
+        return answer.get("answer"), answer.get("followup")
+
+
+class PetChatbotFactory:
+    def __init__(self):
+        self.instances: dict[str, PetChatbot] = {}
+        self.db = PineconeDB()
+    
+    def get_instance(self, llm_provider: str, llm_model: str) -> PetChatbot:
+        """
+        Get an instance of PetChatbot based on the LLM provider and model.
+
+        Args:
+            llm_provider (str): The LLM provider (e.g., "openai", "anthropic").
+            llm_model (str): The LLM model name.
+
+        Returns:
+            PetChatbot: An instance of the PetChatbot class. 
+        """
+        key = f"{llm_provider}_{llm_model}"
+        if key not in self.instances:
+            self.instances[key] = PetChatbot(llm_provider, llm_model)
+        return self.instances[key]
+
+
+# Fast API app 
+app = FastAPI()
+
+chatbot_factory = None # Global Factory to manage chatbot instances
+@app.on_event("startup")
+async def startup_event():
+    global chatbot_factory
+    chatbot_factory = PetChatbotFactory()
+    print("Chatbot factory initialized.")
+
+def get_chatbot_factory():
+    return chatbot_factory
+
+
+# Endpoints 
+@app.get("/")
+async def root():
+    return {"message": "Welcome to the Pet Chatbot API!"}
+
+@app.get("/health")
+async def health_check(factory: PetChatbotFactory = Depends(get_chatbot_factory)):
+    # Check active instances 
+    
+    active_instances = list(factory.instances.keys())
+    instance_count = len(factory.instances)
+
+    # Get memory usage information 
+    import psutil 
+    process = psutil.Process(os.getpid())
+    memory_info = process.memory_info()
+    memory_usage_mb = memory_info.rss / 1024 / 1024  # Convert bytes to MB
+
+    # Check Database Connection
+    db_status = "healthy"
+    try:
+        factory.db.check_connection()
+    except Exception as e:
+        db_status = "unhealthy"
+        print(f"Database connection error: {e}")
+    
+    # Check LLM Status
+    llm_status = "healthy"
+    try:
+        # Build response
+        health_data = {
+            "status": "healthy",
+            "timestamp": datetime.datetime.now().isoformat(),
+            "uptime_seconds": int(time.time() - process.create_time()),
+            "memory_usage_mb": round(memory_usage_mb, 2),
+            "active_instances": instance_count,
+            "instances": active_instances,
+            "db_status": db_status,
+            "llm_status": llm_status
+        }
+        return health_data
+    except Exception as e:
+        return {
+            "status": "unhealthy",
+            "error": str(e),
+            "timestamp": datetime.datetime.now().isoformat()
+        }
+
+@app.post("/ask")
+async def chat(request: InputSchema, factory: PetChatbotFactory = Depends(get_chatbot_factory)):
+    try:
+        # Get chatbot instance
+        chatbot = factory.get_instance(
+            llm_provider = request.llm_provider,
+            llm_model = request.llm_model
+        )
+        # Retrieve context
+        context = chatbot.retrieve_context(
+            query = request.question, 
+            namespace = request.namespace
+        )
+        # Generate answer
+        answer, followup = chatbot.generate_answer(
+            query = request.question, 
+            context = context, 
+            previous_conversation = request.previous_conversation
+        )
+        return {"answer": answer, "followup": followup}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error processing request: {e}")
+
+
+
+
+        
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# # Run PetChatbot 
+# if __name__ == "__main__":
+#     c = PetChatbot(
+#         llm_provider = "openai", 
+#         llm_model = "gpt-4o-mini"
+#     )
+#     import time 
+#     s = time.time()
+#     # Test
+#     print("Retrieving context...")
+#     query = "What is the best food for my dog?"
+#     context = c.retrieve_context(
+#         query = query, 
+#         namespace = "dogs"
+#     )
+#     answer, followup = c.generate_answer(
+#         query = query, 
+#         context = context
+#     )
+#     e = time.time()
+#     print("Time taken:", e - s)
+#     print("Answer:", answer)
+#     print("Followup:", followup)
+

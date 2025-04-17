@@ -1,29 +1,6 @@
 {
     "cSpell.words": [
-        "Behaviour",
-        "chromadb",
-        "chunker",
-        "dotenv",
-        "Everytime",
-        "fitz",
         "Furr",
-        "genai",
-        "generativeai",
-        "ingestor",
-        "ipynb",
-        "Jina",
-        "Lemmatization",
-        "Milvus",
-        "misclleneous",
-        "numpy",
-        "petmd",
-        "preprocesses",
-        "rerank",
-        "reranker",
-        "shortuuid",
-        "streamlit",
-        "tqdm",
-        "updation",
-        "upserting"
+        "Furrbot"
     ]
 }
