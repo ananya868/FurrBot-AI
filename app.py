@@ -7,7 +7,7 @@ Furrbot Chatbot API
 - /: Welcome message.
 """
 
-import os, json 
+import os, json, time, datetime
 import asyncio
 from pydantic import BaseModel, Field
 from fastapi import FastAPI, Depends, HTTPException
@@ -16,14 +16,7 @@ from RAG.llm import LLM
 from RAG.db import PineconeDB
 from RAG.prompt import PromptTemplate
 
-
-# Schemas 
-class InputSchema(BaseModel):
-    question: str = Field(..., description="User query for the chatbot.")
-    namespace: str = Field(..., description="Namespace for the database.")
-    previous_conversation: list = Field([], description="Previous conversation history.")
-    llm_provider: str = Field(..., description="LLM provider (e.g., 'openai', 'anthropic')")
-    llm_model: str = Field(..., description="LLM model name")
+from schemas import InputSchema, PetBioSchema
 
 
 # Worker Class 
