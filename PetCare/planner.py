@@ -14,10 +14,5 @@ class SimplePlanner(Planner):
         pass 
 
     def plan(self, pet_bio: dict) -> str: 
-        # Steps ->
-        # User fills a form (qna on their pet)
-        # Based on these data, llm will generate relevant queries to look into the database. 
-        # based on these queries, and a pre-defined design, it will generate a plan.
-
         pass 
     

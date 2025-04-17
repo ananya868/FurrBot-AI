@@ -168,7 +168,7 @@ async def health_check(factory: PetChatbotFactory = Depends(get_chatbot_factory)
             "error": str(e),
             "timestamp": datetime.datetime.now().isoformat()
         }
-
+        
 @app.post("/ask")
 async def chat(request: InputSchema, factory: PetChatbotFactory = Depends(get_chatbot_factory)):
     try:
@@ -207,31 +207,4 @@ async def chat(request: InputSchema, factory: PetChatbotFactory = Depends(get_ch
 
 
 
-
-
-
-
-# # Run PetChatbot 
-# if __name__ == "__main__":
-#     c = PetChatbot(
-#         llm_provider = "openai", 
-#         llm_model = "gpt-4o-mini"
-#     )
-#     import time 
-#     s = time.time()
-#     # Test
-#     print("Retrieving context...")
-#     query = "What is the best food for my dog?"
-#     context = c.retrieve_context(
-#         query = query, 
-#         namespace = "dogs"
-#     )
-#     answer, followup = c.generate_answer(
-#         query = query, 
-#         context = context
-#     )
-#     e = time.time()
-#     print("Time taken:", e - s)
-#     print("Answer:", answer)
-#     print("Followup:", followup)
 
