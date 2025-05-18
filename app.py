@@ -10,13 +10,12 @@ Furrbot Chatbot API
 import os, json, time, datetime
 import asyncio
 from pydantic import BaseModel, Field
+from typing import Optional, Any
 from fastapi import FastAPI, Depends, HTTPException
 
-from RAG.llm import LLM 
+from RAG.llms import LLM 
 from RAG.db import PineconeDB
-from RAG.prompt import PromptTemplate
-
-from schemas import InputSchema, PetBioSchema
+from RAG.prompts import PromptTemplate
 
 
 # Worker Class 
@@ -168,7 +167,16 @@ async def health_check(factory: PetChatbotFactory = Depends(get_chatbot_factory)
             "error": str(e),
             "timestamp": datetime.datetime.now().isoformat()
         }
-        
+
+
+# -- Schema --
+class InputSchema(BaseModel):
+    question: str = Field(..., description="The user's question")
+    namespace: str = Field(..., description="Namespace for vector DB retrieval")
+    llm_provider: str = Field(..., description="LLM provider name (e.g., 'openai')")
+    llm_model: str = Field(..., description="LLM model name (e.g., 'gpt-4')")
+    previous_conversation: Optional[list[dict[str, Any]]] = Field(default=[], description="List of previous messages for context")
+
 @app.post("/ask")
 async def chat(request: InputSchema, factory: PetChatbotFactory = Depends(get_chatbot_factory)):
     try:

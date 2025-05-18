@@ -31,8 +31,11 @@ class LLM(ABC):
 
 # Output Schema 
 class OutputSchema(BaseModel):
+    class follow_up_questions(BaseModel):
+        question: str = Field(..., description="The follow-up question to ask the user.")
+        
     answer: str = Field(..., description="The answer to the question.")
-    followup: Optional[str] = Field(..., description="Follow-up question to suggest to the user.")
+    followup: Optional[list[follow_up_questions]] = Field(..., description="Follow-up question to suggest to the user.")
 
 
 class OpenAILLM(LLM):
@@ -183,4 +186,4 @@ if __name__ == "__main__":
 
     prompt = "Write a 20 words para on france? give followups as well!"
     response = llm.generate_text(prompt)
-    print(response)  # Should print the answer to the question.
+    print(response)

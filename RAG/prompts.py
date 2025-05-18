@@ -31,16 +31,17 @@ class PromptTemplate:
                 User's query: {user_query}
                 
                 ## NOTE: 
-                    - If the user is simply greeting you, then greet them back in a friendly manner, dont use the context. 
+                    - If the user is simply greeting you, then greet them back in a friendly manner, dont use the context.
+                        Do not write follow-up questions in this case. 
                         Otherwise, based on the conversation and the retrieved information, generate the next response.
                     - If the query is related to a previous part of the conversation, provide a follow-up response, 
-                        otherwise answer using the retrieved context.
+                        otherwise answer using the retrieved context. Also suggest 3 follow-up questions to keep the conversation going.
                     - Your answer should be in a friendly way, make sure to use some markdown formatting like making the important points **bold**,
                         or give point wise answer for better clearness, use emojis in most sentences to represent emotions (must do).
                     - Also generate 3 follow-up questions to keep the conversation going.
 
                 OUTPUT FORMAT: 
                 - Answer (Your response to the user)
-                - Follow-up Questions (to keep the conversation going)
+                - 3 Follow-up Questions (to keep the conversation going)
             """
         return prompt 
